@@ -1,0 +1,22 @@
+{
+  "name": "ltcarchive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "module": "es2022",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.0.1",
+    "dotenv": "^16.0.1",
+    "kysely": "^0.19.8",
+    "pg": "^8.7.3",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}
