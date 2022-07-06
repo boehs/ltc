@@ -1,10 +1,11 @@
-import { updatedb } from './db.ts'
+import { Worker } from 'worker_threads'
+import { LtcJson, patchJson, writeLettersToDB } from './shared.js'
 
-const workers = []
+const workers: Worker[] = []
 const endpoints = [{
     endpoint: 'http://letterstocrushes.com/api/get_letters/-1',
     folder: 'letter',
-    offset: 39587
+    offset: 39779
 //}
 }
 //{
@@ -17,25 +18,18 @@ const endpoints = [{
 const NUM_WORKERS = endpoints.length
 
 for (let i = 0; i < NUM_WORKERS; i++) {
-    workers.push(new Worker(new URL("./worker.js", import.meta.url).href, {
-        type: "module",
-        deno: {
-            namespace: true
-        }
-    }))
+    workers.push(new Worker("./worker.js"))
 }
 
 console.log('yo')
 
 workers.forEach((w, i) => {
     w.postMessage(endpoints[i]);
-    w.addEventListener('message', async (m) => {
-        if (m.data.status == 'done') return
-        else if (m.data.status == 200) {
+    w.on('message', async (m: {status: 'done' | 200,json: LtcJson[]}) => {
+        if (m.status == 'done') return
+        else if (m.status == 200) {
             endpoints[i].offset++
-            for (const item of m.data.json) {
-                await updatedb(item)
-            }
+            await writeLettersToDB(patchJson(m.json))
         }
         w.postMessage(endpoints[i]);
     })

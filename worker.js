@@ -1,13 +1,12 @@
-//import { updatedb } from './db.ts'
-const encoder = new TextEncoder()
+import { parentPort } from "worker_threads"
+import fetch, { Headers } from 'node-fetch';
+
 console.log('worker first run')
 
-
-self.onmessage = async (e) => {
-    const { offset, endpoint, folder } = e.data
-    const letter = offset
+parentPort.on('message', async (e) => {
+    const { offset, endpoint } = e
     const start = Date.now()
-    const letters = await fetch(`${endpoint}/${letter}`, {
+    const letters = await fetch(`${endpoint}/${offset}`, {
         headers: new Headers({
             "User-Agent": "Letters to crushes data analysis project for AP statistics (evan@boehs.org)"
         })
@@ -15,17 +14,13 @@ self.onmessage = async (e) => {
     const json = await letters.json()
     switch (letters.status) {
         case 404 || 500:
-            console.log(`404! for letter ${letter}`)
+            console.log(`404! for letter ${offset}`)
             break
         case 200: {
-            console.log(`got letter ${letter}, took ${(Date.now()-start)/1000} seconds`)
-            await Deno.writeFile(`./${folder}/${letter}.json`,encoder.encode(JSON.stringify(json, null, 4)))
-            //for (const item of json) {
-            //    console.log(await updatedb(item))
-            //}
+            console.log(`got letter ${offset}, took ${(Date.now()-start)/1000} seconds`)
             break
         }
-        default: console.log(`${letters.status} for ${letter}`)
+        default: console.log(`${letters.status} for ${offset}`)
     }
-    await self.postMessage({status: letters.status, json: json})
-}
+    await parentPort.postMessage({status: letters.status, json: json})
+})
