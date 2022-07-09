@@ -17,6 +17,14 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: '9' }).setToken(process.env.token);
 
+const args = process.argv.slice(2);
+
+if (args[0] == 'prod') {
+	rest.put(Routes.applicationCommands(process.env.clientid), { body: commands })
+		.then(() => console.log('Successfully registered application commands.'))
+		.catch(console.error);
+}
+
 rest.put(Routes.applicationGuildCommands(process.env.clientid, process.env.guildid), { body: commands })
-	.then(() => console.log('Successfully registered application commands.'))
+	.then(() => console.log('Successfully registered application guild commands.'))
 	.catch(console.error);
