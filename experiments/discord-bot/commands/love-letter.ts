@@ -21,7 +21,6 @@ const IpDB: [number,number,string][] = await new Promise(function(resolve,reject
 })
 
 function getLocation(ip: IPv4) {
-    console.log(ip)
     for (const entry of IpDB) {
         if(entry[0] < ip.getValue() && ip.getValue() < entry[1])  {
             return entry[2]

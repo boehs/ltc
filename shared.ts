@@ -51,8 +51,6 @@ export async function writeLettersToDB(letters: LtcTable[]) {
         .insertInto('ltc')
         .values(letters)
         .onConflict(oc => {
-            // @ts-ignore
-            console.log(`dup for ${letters[0].id}`)
             return oc
                 .column('id')
                 .doNothing()
