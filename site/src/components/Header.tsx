@@ -8,6 +8,7 @@ export default function Header() {
             <ul>
                 <li><a class="secondary" href="/send">send</a></li>
                 <li><a class="secondary" href="/new">new</a></li>
+                <li><a class="secondary" href="/random">random</a></li>
             </ul>
   </header>)
 }
