@@ -4,7 +4,6 @@ import Letter from '~/components/Letter'
 import { createServerResource } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
 import { Resource, Show } from 'solid-js';
-import { main } from './[id].module.css'
 
 interface LetterData {
     message: string;

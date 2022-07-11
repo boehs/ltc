@@ -4,7 +4,6 @@ import Letter from '~/components/Letter'
 import { createServerResource } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
 import { For, Resource, Show } from 'solid-js';
-import { main } from './[offset].module.css'
 
 interface LetterData {
     message: string;
@@ -38,7 +37,6 @@ export function routeData() {
 }
 
 export default function LetterID() {
-    let params = useParams()
     const data: Resource<LetterData[]> = useRouteData()
     return (<main class={main}>
         <Show when={data()}>

@@ -1,5 +1,7 @@
 .letter {
-  margin-block: 40px;
+  & > * {
+    margin-block: 40px;
+  }
   .letter-actions {
     display: flex;
     justify-content: space-between;

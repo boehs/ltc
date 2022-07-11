@@ -1,4 +1,4 @@
-import { ErrorBoundary } from 'solid-js'
+import { ErrorBoundary, Show } from 'solid-js'
 import './Letter.scss'
 import xss from 'xss'
 
@@ -35,9 +35,13 @@ export default function Letter(props: LetterProps) {
                 <ErrorBoundary fallback={err => <>Error rendering information: {err}</>}>
                     <div>
                         <a href={`/letter/${props.id}`}>
-                            <span> {props.hearts} <img src='/heart.png' /></span>
-                            <span> {props.commentsN} <img src='/comment.png' /></span>
-                            <span>{' ' + getFlagEmoji(props.location)}</span>
+                            <Show when={props.commentsN > 0}>
+                                <span> {props.commentsN} <img src='/comment.png' /> </span>
+                            </Show>
+                            <span>{props.hearts} <img src='/heart.png' /></span>
+                            <Show when={props.location}>
+                                <span>{' ' + getFlagEmoji(props.location)}</span>
+                            </Show>
                         </a>
                     </div>
                 </ErrorBoundary>
