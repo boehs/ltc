@@ -24,6 +24,7 @@
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "ip-num": "^1.4.0",
     "pg": "^8.7.3",
-    "sass": "^1.53.0"
+    "sass": "^1.53.0",
+    "xss": "^1.0.13"
   }
 }

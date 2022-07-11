@@ -1,5 +1,6 @@
 import { ErrorBoundary } from 'solid-js'
 import './Letter.scss'
+import xss from 'xss'
 
 interface LetterProps {
     message: string
@@ -41,7 +42,7 @@ export default function Letter(props: LetterProps) {
                     </div>
                 </ErrorBoundary>
             </div>
-            <div innerHTML={props.message} />
+            <div innerHTML={xss(props.message)} />
         </div>
     </ErrorBoundary>)
 }
