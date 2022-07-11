@@ -38,7 +38,7 @@ export function routeData() {
 
 export default function LetterID() {
     const data: Resource<LetterData[]> = useRouteData()
-    return (<main class={main}>
+    return (<main>
         <Show when={data()}>
             <For each={data()}>
                 {letter => <Letter expanded={true} {...letter} />}
