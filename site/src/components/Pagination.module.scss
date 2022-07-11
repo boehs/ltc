@@ -8,9 +8,14 @@ div.pagination {
         border-radius: 3px;
         padding: 10px 15px;
         text-decoration: none;
+        transition: background-color 0.2s, color 0.2s, transform 0.5s;
         
         &.active {
             background-color: var(--lighter);
+        }
+        
+        &:hover {
+            transform: translateY(-2px);
         }
     }
 }
