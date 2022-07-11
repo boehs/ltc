@@ -1,5 +1,5 @@
 .letter {
-  margin-block: 30px;
+  margin-block: 40px;
   .letter-actions {
     display: flex;
     justify-content: space-between;
@@ -7,6 +7,10 @@
     
     a {
       text-decoration: none;
+      
+      img {
+        margin-bottom: -3px;
+      }
       
       &:hover {
         text-decoration: underline;

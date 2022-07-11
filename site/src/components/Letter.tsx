@@ -1,3 +1,4 @@
+import { ErrorBoundary } from 'solid-js'
 import './Letter.scss'
 
 interface LetterProps {
@@ -19,15 +20,28 @@ function getFlagEmoji(countryCode) {
 }
 
 export default function Letter(props: LetterProps) {
-    return (<div class="letter">
-        <div class="letter-actions">
-            <div>
-                <a href={`/letter/${props.id}`}>{props.date.toLocaleString([], { dateStyle: 'long', timeStyle: 'short' })} {getFlagEmoji(props.location)}</a>
+    let date = new Date(props.date)
+    return (<ErrorBoundary>
+        <div class="letter">
+            <div class="letter-actions">
+                <ErrorBoundary fallback={err => <>Error rendering date: {err}</>}>
+                    <div>
+                        <a href={`/letter/${props.id}`}>
+                            {date.toLocaleDateString([], { dateStyle: 'long' })}, {date.toLocaleTimeString([], { timeStyle: 'short' })}
+                        </a>
+                    </div>
+                </ErrorBoundary>
+                <ErrorBoundary fallback={err => <>Error rendering information: {err}</>}>
+                    <div>
+                        <a href={`/letter/${props.id}`}>
+                            <span> {props.hearts} <img src='/heart.png' /></span>
+                            <span> {props.commentsN} <img src='/comment.png' /></span>
+                            <span>{' ' + getFlagEmoji(props.location)}</span>
+                        </a>
+                    </div>
+                </ErrorBoundary>
             </div>
-            <div>
-                <a href={`/letter/${props.id}`}><span>{props.hearts} <b>♡</b></span> <span>{props.commentsN} <b>🗩</b></span></a>
-            </div>
+            <div innerHTML={props.message} />
         </div>
-        <div innerHTML={props.message} />
-    </div>)
+    </ErrorBoundary>)
 }
