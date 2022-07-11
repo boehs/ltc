@@ -1,9 +1,9 @@
 import { useParams, useRouteData } from 'solid-app-router'
 import { db, getLocation } from '../../../../shared'
 import Letter from '~/components/Letter'
-import { createServerResource, StartContext, StatusCode } from 'solid-start/server'
+import { createServerResource } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
-import { Resource, Show, useContext } from 'solid-js';
+import { Resource, Show } from 'solid-js';
 import NotFound from '../[...404]';
 
 interface LetterData {
@@ -15,7 +15,7 @@ interface LetterData {
     hearts: number
 }
 
-export function routeData({ params }) {
+export function routeData() {
     return createServerResource(() => useParams().id, async function (id) {
         const stuffs = await db
             .selectFrom('ltc')

@@ -34,15 +34,13 @@ export default function Letter(props: LetterProps) {
                 </ErrorBoundary>
                 <ErrorBoundary fallback={err => <>Error rendering information: {err}</>}>
                     <div>
-                        <a href={`/letter/${props.id}`}>
-                            <Show when={props.commentsN > 0}>
-                                <span> {props.commentsN} <img src='/comment.png' /> </span>
-                            </Show>
-                            <span>{props.hearts} <img src='/heart.png' /></span>
-                            <Show when={props.location}>
-                                <span>{' ' + getFlagEmoji(props.location)}</span>
-                            </Show>
-                        </a>
+                        <Show when={props.commentsN > 0}>
+                            <span>{props.commentsN} <img src='/comment.png' /></span>
+                        </Show>
+                        <span>{props.hearts} <img src='/heart.png' /></span>
+                        <Show when={props.location}>
+                            <span>{getFlagEmoji(props.location)}</span>
+                        </Show>
                     </div>
                 </ErrorBoundary>
             </div>

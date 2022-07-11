@@ -6,11 +6,19 @@
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    transition: transform 0.2s;
 
+    span {
+      border-radius: 3px;
+      padding: 3px;
+      color: var(--primary);
+      cursor: pointer;
+      display: inline-block;
+      transition: background-color 0.2s, transform 0.5s;
+    }
     
     span:hover {
-      transform: scale(1.1) rotate(-10deg);
+      background-color: #FCE2E2;
+      transform: translateY(-2px);
     }
 
     img {
