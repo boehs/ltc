@@ -10,6 +10,7 @@ interface LetterProps {
     commentsN: number
     expanded: boolean
     hearts: number
+    hidden?: boolean
 }
 
 function getFlagEmoji(countryCode) {
@@ -23,7 +24,7 @@ function getFlagEmoji(countryCode) {
 export default function Letter(props: LetterProps) {
     let date = new Date(props.date)
     return (<ErrorBoundary>
-        <div class="letter">
+        <div class="letter" style={`${props.hidden ? 'color: var(--lighter)' : ''}`}>
             <div class="letter-actions">
                 <ErrorBoundary fallback={err => <>Error rendering date: {err}</>}>
                     <div>

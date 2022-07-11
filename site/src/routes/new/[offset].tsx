@@ -22,6 +22,7 @@ export function routeData({params}) {
             .selectFrom('ltc')
             .orderBy('id', 'desc')
             .limit(10)
+            .where('hidden','=',false)
             .offset((Number(offset) * 10) - 10)
             .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup'])
             .execute()

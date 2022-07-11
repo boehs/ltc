@@ -14,6 +14,7 @@ interface LetterData {
     location: string;
     commentsN: number;
     hearts: number
+    hidden: boolean
 }
 
 export function routeData({params}) {
@@ -22,11 +23,12 @@ export function routeData({params}) {
             .selectFrom('ltc')
             .where('id', '=', Number(id))
             .limit(1)
-            .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup'])
+            .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup','hidden'])
             .executeTakeFirst()
         if (stuffs) {
             return {
                 message: stuffs.lettermessage,
+                hidden: stuffs.hidden,
                 hearts: stuffs.letterup,
                 id: stuffs.id,
                 date: stuffs.letterpostdate,

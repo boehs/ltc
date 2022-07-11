@@ -25,6 +25,7 @@ interface LtcBase {
 export interface LtcTable extends LtcBase {
     id: Generated<number>
     letterpostdate: Date;
+    hidden: Generated<boolean>
 }
 
 export interface LtcJson extends LtcBase {
