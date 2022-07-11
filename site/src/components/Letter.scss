@@ -1,0 +1,15 @@
+.letter {
+  margin-block: 30px;
+  .letter-actions {
+    display: flex;
+    justify-content: space-between;
+    a {
+      text-decoration: none;
+      font-size: 12px;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

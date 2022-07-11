@@ -14,18 +14,18 @@ body {
 
 a {
   color: var(--primary);
+  
+  &:visited {
+    color: var(--primary);
+  }
+  
+  &:hover {
+    color: #B88282
+  }
 
   &.secondary {
     color: #000;
     font-size: 12px;
-
-    &:visited {
-      color: #000;
-    }
-  }
-
-  &:visited {
-    color: var(--primary);
   }
 }
 

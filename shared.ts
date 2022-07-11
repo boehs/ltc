@@ -3,6 +3,9 @@ import { Kysely, PostgresDialect } from "kysely"
 import pkg from 'pg';
 const { Pool } = pkg;
 import 'dotenv/config'
+import { IPv4 } from "ip-num/IPNumber.js";
+import { parse } from 'csv-parse';
+import { createReadStream } from 'fs'
 
 interface LtcBase {
     lettermessage: string;
@@ -70,3 +73,23 @@ export function patchJson(json: LtcJson[]): LtcTable[] {
     })
 }
 
+const IpDB: [number,number,string][] = await new Promise(function(resolve,reject) {
+    const result: [number,number,string][] = [];
+    createReadStream('./node_modules/@ip-location-db/asn-country/asn-country-ipv4-num.csv')
+    .pipe(parse())
+    .on("data", (data) => {
+        result.push([Number(data[0]),Number(data[1]),data[2]]);
+    })
+    .on('end', () => {
+        resolve(result);
+    })
+    .on('error',reject)
+})
+
+export function getLocation(ip: IPv4) {
+    for (const entry of IpDB) {
+        if(entry[0] < ip.getValue() && ip.getValue() < entry[1])  {
+            return entry[2]
+        }
+    }
+}

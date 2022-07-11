@@ -1,32 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders'
 import { CommandInteraction } from 'discord.js'
 import { sql } from 'kysely'
-import { db } from '../../../shared.js'
+import { db, getLocation } from '../../../shared.js'
 import TurndownService from 'turndown'
 import { IPv4 } from "ip-num/IPNumber.js";
-import { parse } from 'csv-parse';
-import { createReadStream } from 'fs'
-
-const IpDB: [number,number,string][] = await new Promise(function(resolve,reject) {
-    const result: [number,number,string][] = [];
-    createReadStream('./node_modules/@ip-location-db/asn-country/asn-country-ipv4-num.csv')
-    .pipe(parse())
-    .on("data", (data) => {
-        result.push([Number(data[0]),Number(data[1]),data[2]]);
-    })
-    .on('end', () => {
-        resolve(result);
-    })
-    .on('error',reject)
-})
-
-function getLocation(ip: IPv4) {
-    for (const entry of IpDB) {
-        if(entry[0] < ip.getValue() && ip.getValue() < entry[1])  {
-            return entry[2]
-        }
-    }
-}
 
 const turndownService = new TurndownService()
 

@@ -20,6 +20,10 @@
     "node": ">=14"
   },
   "dependencies": {
+    "@ip-location-db/asn-country": "^2.3.2022070918",
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
+    "ip-num": "^1.4.0",
+    "pg": "^8.7.3",
     "sass": "^1.53.0"
   }
 }

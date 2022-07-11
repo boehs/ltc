@@ -12,8 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ip-location-db/asn-country": "^2.3.2022070918",
     "@types/node": "^18.0.1",
+    "csv-parse": "^5.3.0",
     "dotenv": "^16.0.1",
+    "ip-num": "^1.4.0",
     "kysely": "^0.19.8",
     "node-fetch": "^3.2.6",
     "pg": "^8.7.3",

@@ -1,8 +1,11 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ip-location-db/asn-country': ^2.3.2022070918
   '@types/node': ^18.0.1
+  csv-parse: ^5.3.0
   dotenv: ^16.0.1
+  ip-num: ^1.4.0
   kysely: ^0.19.8
   node-fetch: ^3.2.6
   pg: ^8.7.3
@@ -10,8 +13,11 @@ specifiers:
   typescript: ^4.7.4
 
 dependencies:
+  '@ip-location-db/asn-country': 2.3.2022070918
   '@types/node': 18.0.1
+  csv-parse: 5.3.0
   dotenv: 16.0.1
+  ip-num: 1.4.0
   kysely: 0.19.8
   node-fetch: 3.2.6
   pg: 8.7.3
@@ -25,6 +31,10 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+    dev: false
+
+  /@ip-location-db/asn-country/2.3.2022070918:
+    resolution: {integrity: sha512-6z7fFxWtf62VDPKgC7fIO8JTF0isOewhQStzefaqpzrbTBDgdmVP6E2WVWaouIo8ovK7TrPPAhTdAV64qKc3NQ==}
     dev: false
 
   /@jridgewell/resolve-uri/3.0.8:
@@ -87,6 +97,10 @@ packages:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
     dev: false
 
+  /csv-parse/5.3.0:
+    resolution: {integrity: sha512-UXJCGwvJ2fep39purtAn27OUYmxB1JQto+zhZ4QlJpzsirtSFbzLvip1aIgziqNdZp/TptvsKEV5BZSxe10/DQ==}
+    dev: false
+
   /data-uri-to-buffer/4.0.0:
     resolution: {integrity: sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==}
     engines: {node: '>= 12'}
@@ -115,6 +129,10 @@ packages:
     engines: {node: '>=12.20.0'}
     dependencies:
       fetch-blob: 3.1.5
+    dev: false
+
+  /ip-num/1.4.0:
+    resolution: {integrity: sha512-MP+gq4uBvrvm+G7EwP14GcJeFK49/p6sZrNOarMUoExLRodULJQM8mnkb/SbT1YKxRsZfh8rgwei2pUJIa35jA==}
     dev: false
 
   /kysely/0.19.8:
