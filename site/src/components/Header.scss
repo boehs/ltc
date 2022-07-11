@@ -1,0 +1,23 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+        font-weight: normal;
+        font-size: 22px;
+    }
+    
+    ul {
+        display: flex;
+        padding-inline-start: 0;
+        
+        li {
+            display: block;
+        }
+    }
+    
+    &, * {
+        gap: 10px;
+    }
+}
