@@ -16,12 +16,10 @@ interface LetterData {
 }
 
 export function routeData() {
-
-    return createServerResource(async () => {
-        const params = useParams()
+    return createServerResource(() => useParams().letter, async function(letter) {
         const stuffs = await db
             .selectFrom('ltc')
-            .where('id', '=', Number(params.id))
+            .where('id', '=', Number(letter))
             .limit(1)
             .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup'])
             .executeTakeFirst()
