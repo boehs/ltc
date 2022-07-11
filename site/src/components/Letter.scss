@@ -6,14 +6,21 @@
     display: flex;
     justify-content: space-between;
     font-size: 12px;
+    transition: transform 0.2s;
+
     
+    span:hover {
+      transform: scale(1.1) rotate(-10deg);
+    }
+
+    img {
+      margin-bottom: -3px;
+      image-rendering: crisp-edges;
+    }
+
     a {
       text-decoration: none;
-      
-      img {
-        margin-bottom: -3px;
-      }
-      
+
       &:hover {
         text-decoration: underline;
       }

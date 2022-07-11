@@ -1,9 +1,10 @@
 import { useParams, useRouteData } from 'solid-app-router'
 import { db, getLocation } from '../../../../shared'
 import Letter from '~/components/Letter'
-import { createServerResource } from 'solid-start/server'
+import { createServerResource, StartContext, StatusCode } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
-import { Resource, Show } from 'solid-js';
+import { Resource, Show, useContext } from 'solid-js';
+import NotFound from '../[...404]';
 
 interface LetterData {
     message: string;
@@ -14,21 +15,25 @@ interface LetterData {
     hearts: number
 }
 
-export function routeData() {
-    return createServerResource(() => useParams().id, async function(id) {
+export function routeData({ params }) {
+    return createServerResource(() => useParams().id, async function (id) {
         const stuffs = await db
             .selectFrom('ltc')
             .where('id', '=', Number(id))
             .limit(1)
             .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup'])
             .executeTakeFirst()
-        return {
-            message: stuffs.lettermessage,
-            hearts: stuffs.letterup,
-            id: stuffs.id,
-            date: stuffs.letterpostdate,
-            location: getLocation(IPv4.fromString(stuffs.senderip)),
-            commentsN: stuffs.lettercomments
+        if (stuffs) {
+            return {
+                message: stuffs.lettermessage,
+                hearts: stuffs.letterup,
+                id: stuffs.id,
+                date: stuffs.letterpostdate,
+                location: getLocation(IPv4.fromString(stuffs.senderip)),
+                commentsN: stuffs.lettercomments
+            }
+        } else {
+            return false
         }
     })
 
@@ -37,13 +42,11 @@ export function routeData() {
 export default function LetterID() {
     const data: Resource<LetterData> = useRouteData()
     return (<main>
-        <Show when={data()}>
-            <Letter expanded={true} {...data()}/>
-        </Show>
-        <hr/>
-        <Show when={data()}>
+        <Show when={data()} fallback={<NotFound/>}>
+            <Letter expanded={true} {...data()} />
+            <hr />
             <h3>{data().commentsN} comments</h3>
         </Show>
-        
+
     </main>)
 }
