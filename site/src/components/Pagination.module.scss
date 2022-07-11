@@ -1,0 +1,16 @@
+div.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    a {
+        display: inline-block;
+        border-radius: 3px;
+        padding: 10px 15px;
+        text-decoration: none;
+        
+        &.active {
+            background-color: var(--lighter);
+        }
+    }
+}

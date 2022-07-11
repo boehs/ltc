@@ -5,6 +5,7 @@ import { createServerResource } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
 import { Resource, Show } from 'solid-js';
 import NotFound from '../[...404]';
+import Pagination from '~/components/Pagination';
 
 interface LetterData {
     message: string;
@@ -15,8 +16,8 @@ interface LetterData {
     hearts: number
 }
 
-export function routeData() {
-    return createServerResource(() => useParams().id, async function (id) {
+export function routeData({params}) {
+    return createServerResource(() => params.id, async function (id) {
         const stuffs = await db
             .selectFrom('ltc')
             .where('id', '=', Number(id))
@@ -47,6 +48,6 @@ export default function LetterID() {
             <hr />
             <h3>{data().commentsN} comments</h3>
         </Show>
-
+        <Pagination id={(() => Number(useParams().id))()}/>
     </main>)
 }

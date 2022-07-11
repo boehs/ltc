@@ -14,6 +14,9 @@ body {
 
 :root {
   --primary: #f59696;
+  --darker: #B88282;
+  --lighter: #FCE2E2;
+  scroll-behavior: smooth;
 }
 
 a {
@@ -24,7 +27,7 @@ a {
   }
   
   &:hover {
-    color: #B88282
+    color: var(--darker)
   }
 
   &.secondary {
