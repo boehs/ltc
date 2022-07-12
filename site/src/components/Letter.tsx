@@ -23,7 +23,7 @@ function getFlagEmoji(countryCode) {
 
 export default function Letter(props: LetterProps) {
     let date = new Date(props.date)
-    return (<ErrorBoundary>
+    return (<ErrorBoundary fallback={err => <>Error rendering this letter: {err}. Sorry :(</>}>
         <div class="letter" style={`${props.hidden ? 'color: var(--lighter)' : ''}`}>
             <div class="letter-actions">
                 <ErrorBoundary fallback={err => <>Error rendering date: {err}</>}>

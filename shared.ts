@@ -26,6 +26,7 @@ export interface LtcTable extends LtcBase {
     id: Generated<number>
     letterpostdate: Date;
     hidden: Generated<boolean>
+    lmts: "tsquery"
 }
 
 export interface LtcJson extends LtcBase {
@@ -37,7 +38,7 @@ interface Database {
     ltc: LtcTable
 }
 
-const pool = new Pool({
+export const pool = new Pool({
     database: process.env.db,
     host: process.env.host || "localhost",
     user: process.env.user,

@@ -1,6 +1,7 @@
 body {
+  margin: 0;
   background-color: #fff;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow-y: overlay;
   > * {
     max-width: 600px;
@@ -14,21 +15,22 @@ body {
 
 :root {
   --primary: #f59696;
-  --darker: #B88282;
-  --lighter: #FCE2E2;
+  --darker: #b88282;
+  --lighter: #fce2e2;
   scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
 a {
   color: var(--primary);
   transition: color 0.2s;
-  
+
   &:visited {
     color: var(--primary);
   }
-  
+
   &:hover {
-    color: var(--darker)
+    color: var(--darker);
   }
 
   &.secondary {
@@ -48,4 +50,33 @@ hr {
 
 p {
   margin-block: 1.5em;
+}
+
+form {
+  border: 1px dotted black;
+  padding: 10px;
+  width: min(450px, 100%);
+
+  label {
+    font-size: 0.8em;
+  }
+
+  input {
+    border: 1px solid #ccc;
+    display: block;
+    padding: 5px;
+    margin-block-end: 10px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+  
+  input:disabled {
+    background-color: var(--lighter);
+  }
+  
+  input:last-of-type {
+    margin-block-end: 0;
+  }
 }
