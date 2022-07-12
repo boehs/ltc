@@ -24,7 +24,7 @@ console.log('yo')
 
 workers.forEach((w, i) => {
     w.postMessage(endpoints[i]);
-    w.on('message', async (m: {status: 'done' | 200,json: LtcJson[]}) => {
+    w.on('message', async (m: {status: 'done' | 200, json: LtcJson[]}) => {
         if (m.status == 'done') return
         else if (m.status == 200) {
             endpoints[i].offset++

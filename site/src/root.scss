@@ -21,6 +21,7 @@ body {
 
 a {
   color: var(--primary);
+  transition: color 0.2s;
   
   &:visited {
     color: var(--primary);

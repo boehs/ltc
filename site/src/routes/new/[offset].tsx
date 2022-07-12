@@ -26,7 +26,7 @@ export function routeData({params}) {
             .offset((Number(offset) * 10) - 10)
             .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup'])
             .execute()
-        if (stuffs && stuffs != []) {
+        if (stuffs && stuffs.length != 0) {
             return stuffs.map(stuffs => {
                 return {
                     message: stuffs.lettermessage,
