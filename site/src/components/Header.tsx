@@ -5,6 +5,9 @@ import "./Header.scss";
 export default function Header() {
   const navigate = useNavigate()
   createShortcut(['R'],() => navigate('/random'))
+  createShortcut(['N'],() => navigate('/new'))
+  createShortcut(['S'],() => navigate('/search'))
+  createShortcut(['F'],() => navigate('/'))
   
   return (<header>
             <h1>
