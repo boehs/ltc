@@ -1,20 +1,7 @@
-import { useParams, useRouteData } from 'solid-app-router'
 import { db, getLocation } from '../../../../shared'
-import Letter from '~/components/Letter'
 import { createServerData } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
-import { ErrorBoundary, For, Resource, Show } from 'solid-js';
-import NotFound from '../[...404]';
-import Pagination from '~/components/Pagination';
-
-interface LetterData {
-    message: string;
-    id: number;
-    date: Date;
-    location: string;
-    commentsN: number;
-    hearts: number
-}
+import LetterList from '~/components/LetterList';
 
 export function routeData({params}) {
     return createServerData(() => params.offset, async function (offset) {
@@ -43,17 +30,6 @@ export function routeData({params}) {
     })
 }
 
-export default function LetterID() {
-    const data: Resource<LetterData[]> = useRouteData()
-    const id = () => Number(useParams().offset)
-    return (<main>
-        <ErrorBoundary fallback={<NotFound/>}>
-            <Show when={data()} fallback={<NotFound/>}>
-                <For each={data()}>
-                    {letter => <Letter expanded={true} {...letter} />}
-                </For>
-            </Show>
-        </ErrorBoundary>
-        <Pagination id={id()}/>
-    </main>)
+export default function LetterId() {
+    return <LetterList/>
 }

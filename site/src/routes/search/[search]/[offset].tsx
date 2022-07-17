@@ -1,12 +1,8 @@
-import { useParams, useRouteData } from 'solid-app-router'
 import { db, getLocation } from '../../../../../shared'
-import Letter from '~/components/Letter'
 import { createServerData } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
-import { ErrorBoundary, For, Show } from 'solid-js';
-import NotFound from '../../[...404]';
-import Pagination from '~/components/Pagination';
 import { sql } from 'kysely';
+import LetterList from '~/components/LetterList';
 
 export function routeData({ params }) {
     return createServerData(() => [params.offset, params.search], async function ([offset, search]) {
@@ -37,22 +33,5 @@ export function routeData({ params }) {
 }
 
 export default function LetterID() {
-    const data: ReturnType<typeof routeData> = useRouteData()
-    const id = () => Number(useParams().offset)
-
-    return (<main>
-        <ErrorBoundary fallback={<NotFound />}>
-            <Show when={data()} fallback={<NotFound />}>
-                <For each={data()}>
-                    {letter => <Letter expanded={true} {...letter} />}
-                </For>
-            </Show>
-        </ErrorBoundary>
-        <Pagination id={id()} />
-        {/*<Show when={data() && data() != false}>
-            {\/* @ts-expect-error *\/}
-            <i>showing {data().length} results for '{useParams().search}'</i>
-        </Show>*/}
-
-    </main>)
+    return <LetterList/>
 }
