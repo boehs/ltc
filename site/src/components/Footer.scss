@@ -1,12 +1,14 @@
 footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    > * {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
     
     ul {
-        display: flex;
         padding-inline-start: 0;
-        flex-wrap: wrap;
         li {
             display: block;
             height: 100%;
@@ -16,4 +18,13 @@ footer {
     &, * {
         gap: 10px;
     }
+}
+
+.slowfade {
+    animation: fadein 5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }

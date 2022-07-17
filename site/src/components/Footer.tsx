@@ -1,3 +1,5 @@
+import { useIsRouting } from 'solid-app-router'
+import { Show } from 'solid-js'
 import './Footer.scss'
 
 export default function Footer() {
@@ -12,6 +14,10 @@ export default function Footer() {
                 <li><a href="/chat">chat</a></li>*/}
                 <li><a class="secondary" href="/feedback">feedback</a></li>
                 <li><a class="secondary" href="/search">search</a></li>
+                <li><a class="secondary" href="/shortcuts">shortcuts</a></li>
             </ul>
+            <Show when={useIsRouting()()}>
+                <p class='secondary slowfade'>☕ Loading...</p>
+            </Show>
         </footer>)
 }

@@ -32,10 +32,14 @@ a {
   &:hover {
     color: var(--darker);
   }
+}
 
-  &.secondary {
+.secondary {
+  color: #000;
+  font-size: 12px;
+  
+  &:visited {
     color: #000;
-    font-size: 12px;
   }
 }
 
