@@ -60,6 +60,7 @@ form {
   border: 1px dotted black;
   padding: 10px;
   width: min(450px, 100%);
+  margin: auto;
 
   label {
     font-size: 0.8em;
@@ -70,6 +71,7 @@ form {
     display: block;
     padding: 5px;
     margin-block-end: 10px;
+    box-sizing: border-box;
   }
 
   input[type="text"] {
