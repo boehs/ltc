@@ -33,7 +33,7 @@ export function routeData({params}) {
                     hearts: stuffs.letterup,
                     id: stuffs.id,
                     date: stuffs.letterpostdate,
-                    location: getLocation(IPv4.fromString(stuffs.senderip)),
+                    location: getLocation(IPv4.fromString(stuffs.senderip.trim())),
                     commentsN: stuffs.lettercomments
                 }
             })
