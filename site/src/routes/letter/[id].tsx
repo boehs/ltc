@@ -1,9 +1,9 @@
 import { useParams, useRouteData } from 'solid-app-router'
 import { db, getLocation } from '../../../../shared'
 import Letter from '~/components/Letter'
-import { createServerResource } from 'solid-start/server'
+import { createServerData } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
-import { Resource, Show } from 'solid-js';
+import { ErrorBoundary, Resource, Show } from 'solid-js';
 import NotFound from '../[...404]';
 import Pagination from '~/components/Pagination';
 
@@ -18,7 +18,7 @@ interface LetterData {
 }
 
 export function routeData({params}) {
-    return createServerResource(() => params.id, async function (id) {
+    return createServerData(() => params.id, async function (id) {
         const stuffs = await db
             .selectFrom('ltc')
             .where('id', '=', Number(id))
@@ -45,11 +45,13 @@ export function routeData({params}) {
 export default function LetterID() {
     const data: Resource<LetterData> = useRouteData()
     return (<main>
-        <Show when={data()} fallback={<NotFound/>}>
-            <Letter expanded={true} {...data()} />
-            <hr />
-            <h3>{data().commentsN} comments</h3>
-        </Show>
+        <ErrorBoundary fallback={<NotFound/>}>
+            <Show when={data()} fallback={<NotFound/>}>
+                <Letter expanded={true} {...data()} />
+                <hr />
+                <h3>{data().commentsN} comments</h3>
+            </Show>
+        </ErrorBoundary>
         <Pagination id={(() => Number(useParams().id))()}/>
     </main>)
 }
