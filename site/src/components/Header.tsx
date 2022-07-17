@@ -1,6 +1,11 @@
+import { createShortcut } from "~/lib/shortcuts";
+import { useNavigate } from "solid-app-router";
 import "./Header.scss";
 
 export default function Header() {
+  const navigate = useNavigate()
+  createShortcut(['R'],() => navigate('/random'))
+  
   return (<header>
             <h1>
                 <a href="/">letters to crushes</a>

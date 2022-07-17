@@ -16,7 +16,7 @@ export default function Search() {
     return <main>
         <data.Form onsubmit={() => setIsLoading(true)}>
             <label for="ss">What are you looking for?</label>
-            <input name="ss" type="text" placeholder="Search..." />
+            <input name="ss" type="text" placeholder="Search..."/>
             <input type="submit" disabled={isLoading()} />
         </data.Form>
     </main>
