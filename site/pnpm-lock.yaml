@@ -4,6 +4,7 @@ specifiers:
   '@ip-location-db/asn-country': ^2.3.2022070918
   '@originjs/vite-plugin-commonjs': ^1.0.3
   '@solid-primitives/keyboard': ^1.0.0
+  '@solid-primitives/set': ^0.2.0
   ip-num: ^1.4.0
   pg: ^8.7.3
   pg-native: ^3.0.0
@@ -22,6 +23,7 @@ dependencies:
   '@ip-location-db/asn-country': 2.3.2022070918
   '@originjs/vite-plugin-commonjs': 1.0.3
   '@solid-primitives/keyboard': 1.0.0_solid-js@1.4.7
+  '@solid-primitives/set': 0.2.0_solid-js@1.4.7
   ip-num: 1.4.0
   pg: 8.7.3_pg-native@3.0.0
   pg-native: 3.0.0
@@ -1397,6 +1399,15 @@ packages:
       solid-js: ^1.3.1
     dependencies:
       '@solid-primitives/utils': 1.5.2_solid-js@1.4.7
+      solid-js: 1.4.7
+    dev: false
+
+  /@solid-primitives/set/0.2.0_solid-js@1.4.7:
+    resolution: {integrity: sha512-bp+Dt/iQHhX6s+PZ7zWVbRr+M5ctseCaEV2aUduvWc9Egcf6PUYgrxo3BvNxJOFhASkkcRcncTrrFOZNN7t/jg==}
+    peerDependencies:
+      solid-js: ^1.3.0
+    dependencies:
+      '@solid-primitives/utils': 2.2.1_solid-js@1.4.7
       solid-js: 1.4.7
     dev: false
 

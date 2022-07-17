@@ -1,6 +1,7 @@
 import { useRouteData } from "solid-app-router";
 import { createSignal } from "solid-js";
 import { createServerAction, redirect } from "solid-start/server";
+import { activeStateListener, isTyping } from "~/lib/shortcuts";
 
 export function routeData() {
     return createServerAction(async (formData: FormData) => {
@@ -16,7 +17,7 @@ export default function Search() {
     return <main>
         <data.Form onsubmit={() => setIsLoading(true)}>
             <label for="ss">What are you looking for?</label>
-            <input name="ss" type="text" placeholder="Search..."/>
+            <input name="ss" type="text" placeholder="Search..." onInput={activeStateListener}/>
             <input type="submit" disabled={isLoading()} />
         </data.Form>
     </main>

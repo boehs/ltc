@@ -1,30 +1,24 @@
 import { createShortcut as _createShortcut } from "@solid-primitives/keyboard"
-import { createSignal, onCleanup } from "solid-js"
+import { ReactiveSet } from '@solid-primitives/set'
 
-export const [isTyping, setIsTyping] = createSignal(new Set())
+export const isTyping = new ReactiveSet()
 
 export const createShortcut: typeof _createShortcut = (...params) => {
     const oldCallback = params[1]
     params[1] = () => {
-        if (!isTyping().size) oldCallback()
-        else console.log('poo')
+        if (isTyping.size == 0 && document.activeElement.tagName != 'INPUT') oldCallback()
     }
-    console.log(params)
+    params[2] = {
+        ...params[2],
+        preventDefault: false
+    }
     return _createShortcut(...params)
 }
 
-function activeStateListener(input: HTMLInputElement)  {
-    input.value == '' ? setIsTyping((set) => set.add(input)) : setIsTyping((set) => {
-        set.delete(input)
-        return set
-    })
-}
-
-export function activeState(form: HTMLFormElement) {
-    const inputs = [...form.querySelectorAll('input')]
-    inputs.forEach((input) => {
-        input.addEventListener('input',() => activeStateListener(input))
-    })
-    
-    onCleanup(() => inputs.forEach(input => input.removeEventListener('input',() => activeStateListener(input))))
+export function activeStateListener(input: InputEvent) {
+    if (input.target.value != '') {
+        isTyping.add(input.target)
+    } else {
+        isTyping.delete(input.target)
+    }
 }
