@@ -8,10 +8,10 @@ export default function Header() {
   if (!isServer) {
     createShortcut(['B'],() => history.back())
   }
-  createShortcut(['R'],() => navigate('/random'))
-  createShortcut(['N'],() => navigate('/new'))
-  createShortcut(['S'],() => navigate('/search'))
-  createShortcut(['F'],() => navigate('/'))
+  createShortcut(['R'],() => navigate('/random',{scroll: true}))
+  createShortcut(['N'],() => navigate('/new',{scroll: true}))
+  createShortcut(['S'],() => navigate('/search',{scroll: true}))
+  createShortcut(['F'],() => navigate('/',{scroll: true}))
   
   return (<header>
             <h1>

@@ -23,7 +23,7 @@ export default function LetterList() {
             <Show when={data()} fallback={<NotFound/>}>
                 <For each={data()}>
                     {(letter,i) => {
-                        if (12 > i()) createShortcut([`${i() == 9 ? 0 : i() + 1}`],() => navigate(`/letter/${letter.id}`))
+                        if (12 > i()) createShortcut([`${i() == 9 ? 0 : i() + 1}`],() => navigate(`/letter/${letter.id}`,{scroll: true}))
                         return <Letter expanded={true} {...letter} />
                     }}
                 </For>
