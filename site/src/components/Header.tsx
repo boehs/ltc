@@ -1,9 +1,13 @@
 import { createShortcut } from "~/lib/shortcuts";
 import { useNavigate } from "solid-app-router";
 import "./Header.scss";
+import { isServer } from "solid-js/web";
 
 export default function Header() {
   const navigate = useNavigate()
+  if (!isServer) {
+    createShortcut(['B'],() => history.back())
+  }
   createShortcut(['R'],() => navigate('/random'))
   createShortcut(['N'],() => navigate('/new'))
   createShortcut(['S'],() => navigate('/search'))
