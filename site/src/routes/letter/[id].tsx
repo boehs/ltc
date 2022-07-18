@@ -7,6 +7,7 @@ import { ErrorBoundary, Resource, Show } from 'solid-js';
 import NotFound from '../[...404]';
 import Pagination from '~/components/Pagination';
 import { activeStateListener } from '~/lib/shortcuts';
+import RenderError from '~/components/RenderError';
 
 interface LetterData {
     message: string;
@@ -46,9 +47,9 @@ export function routeData({ params }) {
 export default function LetterID() {
     const data: Resource<LetterData> = useRouteData()
     return (<main>
-        <ErrorBoundary fallback={err => <p>{err}</p>}>
+        <ErrorBoundary fallback={err => <RenderError error={err}/>}>
             <Show when={data()} fallback={<NotFound />}>
-                <ErrorBoundary fallback={err => <p>{err}</p>}>
+                <ErrorBoundary fallback={err => <RenderError error={err}/>}>
                     <Letter expanded={true} {...data()} />
                 </ErrorBoundary>
                 <ErrorBoundary fallback={err => <p>{err}</p>}>

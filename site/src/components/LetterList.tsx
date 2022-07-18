@@ -4,6 +4,7 @@ import { ErrorBoundary, For, Resource, Show } from 'solid-js';
 import NotFound from '../routes/[...404]';
 import Pagination from '~/components/Pagination';
 import { createShortcut } from '~/lib/shortcuts';
+import RenderError from './RenderError';
 
 interface LetterData {
     message: string;
@@ -19,7 +20,7 @@ export default function LetterList() {
     const id = () => Number(useParams().offset)
     const navigate = useNavigate()
     return (<main>
-        <ErrorBoundary fallback={<NotFound/>}>
+        <ErrorBoundary fallback={(err: Error) => <RenderError error={err}/>}>
             <Show when={data()} fallback={<NotFound/>}>
                 <For each={data()}>
                     {(letter,i) => {

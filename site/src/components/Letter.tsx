@@ -1,6 +1,7 @@
 import { ErrorBoundary, Show } from 'solid-js'
 import './Letter.scss'
 import xss from 'xss'
+import RenderError from './RenderError'
 
 const LetterLinkRegex = /(?<!<a.*>)(?:\n|\s)*?https?:\/\/letterstocrushes.com\/(letter\/[0-9]{1,7})(?!(<\/a>)|[0-9]|('?"?>))/gs
 const LetterHashRegex = /(?<!<a.*>)(#[0-9]{1,7})|([0-9]{1,7}#)(?!(<\/a>)|[0-9]|('?"?>))/g
@@ -26,7 +27,7 @@ function getFlagEmoji(countryCode) {
 
 export default function Letter(props: LetterProps) {
     let date = () => new Date(props.date)
-    return (<ErrorBoundary fallback={err => <>Error rendering this letter: {err}. Sorry :(</>}>
+    return (<ErrorBoundary fallback={err => <RenderError error={err}/>}>
         <div class="letter" style={`${props.hidden ? 'color: var(--lighter)' : ''}`}>
             <div class="letter-actions">
                 <ErrorBoundary fallback={err => <>Error rendering date: {err}</>}>
