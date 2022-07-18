@@ -17,7 +17,7 @@ parentPort.on('message', async (e) => {
             console.log(`404! for letter ${offset}`)
             break
         case 200: {
-            console.log(`got letter ${offset}, took ${(Date.now()-start)/1000} seconds`)
+            console.log(`got page ${offset}, took ${(Date.now()-start)/1000} seconds`)
             break
         }
         default: console.log(`${letters.status} for ${offset}`)
