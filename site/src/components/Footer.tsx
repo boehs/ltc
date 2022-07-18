@@ -1,8 +1,14 @@
 import { useIsRouting } from 'solid-app-router'
-import { Show } from 'solid-js'
+import { createMemo, createSignal, Show } from 'solid-js'
+import { isServer } from 'solid-js/web'
 import './Footer.scss'
 
 export default function Footer() {
+    const [dark,setDark] = createSignal(false)
+    if (!isServer) {
+        createMemo(() => dark() ? document.body.classList.add('dark') : document.body.classList.remove('dark'))
+    }
+
     return (
         <footer>
             <ul>
@@ -15,6 +21,7 @@ export default function Footer() {
                 <li><a class="secondary" href="/feedback">feedback</a></li>
                 <li><a class="secondary" href="/search">search</a></li>
                 <li><a class="secondary" href="/shortcuts">shortcuts</a></li>
+                <li><a class="secondary" href='' onClick={() => setDark(dark => !dark)}>{dark() ? 'light' : 'dark'}</a></li>
             </ul>
             <Show when={useIsRouting()()}>
                 <p class='secondary slowfade'>☕ Loading...</p>
