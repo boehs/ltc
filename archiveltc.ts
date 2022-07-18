@@ -5,7 +5,7 @@ const workers: Worker[] = []
 const endpoints = [{
     endpoint: 'http://letterstocrushes.com/api/get_letters/-1',
     folder: 'letter',
-    offset: 68296
+    offset: 69297
 }
 //{
 //    endpoint: 'http://letterstocrushes.com/api/get_letters/-10',
