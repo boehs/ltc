@@ -2,6 +2,9 @@ import { ErrorBoundary, Show } from 'solid-js'
 import './Letter.scss'
 import xss from 'xss'
 
+const LetterLinkRegex = /(?<!<a.*>)(?:\n|\s)*?https?:\/\/letterstocrushes.com\/(letter\/[0-9]{1,7})(?!(<\/a>)|[0-9]|('?"?>))/gs
+const LetterHashRegex = /(?<!<a.*>)(#[0-9]{1,7})|([0-9]{1,7}#)(?!(<\/a>)|[0-9]|('?"?>))/g
+
 interface LetterProps {
     message: string
     date: Date
@@ -45,7 +48,10 @@ export default function Letter(props: LetterProps) {
                     </div>
                 </ErrorBoundary>
             </div>
-            <div innerHTML={xss(props.message)} />
+            <div innerHTML={xss(props.message)
+                .replace(LetterLinkRegex,'<a href="/$1">letterstocrushes.com/$1</a>')
+                .replace(LetterHashRegex,'<a href="/$1$2">$1$2</a>')
+            }/>
         </div>
     </ErrorBoundary>)
 }
