@@ -13,8 +13,9 @@ export default function Shortcuts() {
             <li><b>h</b>eart</li>
             <li><b>s</b>ave</li>
             <br/>
-            <li><b>{'→'}</b>: next page</li>
-            <li><b>{'←'}</b>: previous page</li>
+            <li><b>→</b>: next page</li>
+            <li><b>←</b>: previous page</li>
+            <li><b>b</b>ack</li>
         </ul>
     </main>)
 }
