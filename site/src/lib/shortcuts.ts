@@ -6,7 +6,7 @@ export const isTyping = new ReactiveSet()
 export const createShortcut: typeof _createShortcut = (...params) => {
     const oldCallback = params[1]
     params[1] = () => {
-        if (isTyping.size == 0 && document.activeElement.tagName != 'INPUT') oldCallback()
+        if (isTyping.size == 0 && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName) ) oldCallback()
     }
     params[2] = {
         ...params[2],
