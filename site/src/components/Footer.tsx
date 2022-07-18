@@ -1,12 +1,12 @@
 import { useIsRouting } from 'solid-app-router'
-import { createMemo, createSignal, Show } from 'solid-js'
+import { createEffect, createSignal, Show } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import './Footer.scss'
 
 export default function Footer() {
     const [dark,setDark] = createSignal(false)
     if (!isServer) {
-        createMemo(() => dark() ? document.body.classList.add('dark') : document.body.classList.remove('dark'))
+        createEffect(() => dark() ? document.body.classList.add('dark') : document.body.classList.remove('dark'))
     }
 
     return (

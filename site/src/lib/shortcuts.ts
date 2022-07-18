@@ -1,12 +1,12 @@
 import { createShortcut as _createShortcut } from "@solid-primitives/keyboard"
 import { ReactiveSet } from '@solid-primitives/set'
 import { useIsRouting } from "solid-app-router"
-import { createMemo } from "solid-js"
+import { createEffect } from "solid-js"
 
 export const isTyping = new ReactiveSet()
 
 export const createShortcut: typeof _createShortcut = (...params) => {
-    createMemo(() => {
+    createEffect(() => {
         if (useIsRouting()) isTyping.clear()
     }) 
     
