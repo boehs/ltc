@@ -22,9 +22,10 @@ export const createShortcut: typeof _createShortcut = (...params) => {
 }
 
 export function activeStateListener(input: InputEvent) {
-    if (input.target.value != '') {
-        isTyping.add(input.target)
+    const target = input.target as HTMLInputElement | HTMLTextAreaElement
+    if (target.value != '') {
+        isTyping.add(target)
     } else {
-        isTyping.delete(input.target)
+        isTyping.delete(target)
     }
 }

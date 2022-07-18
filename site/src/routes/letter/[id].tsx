@@ -69,10 +69,10 @@ export default function LetterID() {
                             <label for="comment">Leave a comment:</label>
                             <textarea rows="1" name='comment' onInput={(e) => {
                                     activeStateListener(e)
-                                    
-                                    e.target.style.height = "1px";
-                                    const height = e.target.scrollHeight + 2
-                                    e.target.style.height = (height > 192 ? 192 : height)+"px";
+                                    const target = e.target as HTMLTextAreaElement
+                                    target.style.height = "1px";
+                                    const height = target.scrollHeight + 2
+                                    target.style.height = (height > 192 ? 192 : height)+"px";
                             }}></textarea>
                             <input type='submit' value="Send 💌"></input>
                         </Show>
@@ -80,7 +80,6 @@ export default function LetterID() {
                 </ErrorBoundary>
             </Show>
         </ErrorBoundary>
-
         <Pagination id={(() => Number(useParams().id))()} />
     </main>)
 }

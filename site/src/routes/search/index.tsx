@@ -5,8 +5,7 @@ import { activeStateListener, isTyping } from "~/lib/shortcuts";
 
 export function routeData() {
     return createServerAction(async (formData: FormData) => {
-        // @ts-expect-error
-        return redirect(`./search/${encodeURI(formData.get('ss'))}/1`)
+        return redirect(`./search/${encodeURI(formData.get('ss') as string)}/1`)
     })
 }
 
