@@ -8,7 +8,7 @@ export default function Shortcuts() {
             <li><b>f</b>eatured/home</li>
             <br/>
             <li><b>g</b>o to <b>{'<number> enter'}</b> (ie: <code>g500000enter</code>)</li>
-            <li><b>{'<number> enter'}</b> on list pages (ie: <code>3enter</code>)</li>
+            <li><b>{'<number>'}</b> on list pages (ie: <code>3</code>)</li>
             <br/>
             <li><b>h</b>eart</li>
             <li><b>s</b>ave</li>

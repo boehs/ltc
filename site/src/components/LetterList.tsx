@@ -22,7 +22,10 @@ export default function LetterList() {
         <ErrorBoundary fallback={<NotFound/>}>
             <Show when={data()} fallback={<NotFound/>}>
                 <For each={data()}>
-                    {letter => <Letter expanded={true} {...letter} />}
+                    {(letter,i) => {
+                        if (12 > i()) createShortcut([`${i() == 9 ? 0 : i() + 1}`],() => navigate(`/letter/${letter.id}`))
+                        return <Letter expanded={true} {...letter} />
+                    }}
                 </For>
             </Show>
         </ErrorBoundary>
