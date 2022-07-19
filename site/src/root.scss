@@ -3,7 +3,7 @@
   --darker: #b88282;
   --lighter: #fce2e2;
   --dark: #000;
-  --light: #fff
+  --light: #fff;
   scroll-behavior: smooth;
   box-sizing: border-box;
 }
@@ -64,6 +64,7 @@ form {
   padding: 10px;
   width: min(450px, 100%);
   margin: auto;
+  background-color: var(--light);
 
   label {
     font-size: 0.8em;
@@ -77,9 +78,10 @@ form {
     padding: 5px;
     margin-block-end: 10px;
     box-sizing: border-box;
+    outline: none;
   }
 
-  input[type="text"],input[type="email"],textarea {
+  input[type="text"],input[type="email"],textarea,input[type="number"] {
     width: 100%;
   }
   
@@ -129,4 +131,11 @@ body.dark {
     --light: #1a1919;
     --lighter: #564444;
     --darker: #fce2e2;
+}
+
+.putInCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }

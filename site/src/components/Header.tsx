@@ -1,7 +1,10 @@
 import { createShortcut } from "~/lib/shortcuts";
 import { useNavigate } from "solid-app-router";
 import "./Header.scss";
-import { isServer } from "solid-js/web";
+import { isServer, Portal } from "solid-js/web";
+import { createEffect, createSignal } from "solid-js";
+
+export const [popup, setPopup] = createSignal<false | 'goto'>(false)
 
 export default function Header() {
   const navigate = useNavigate()
@@ -12,6 +15,27 @@ export default function Header() {
   createShortcut(['N'], () => navigate('/new', { scroll: true }))
   createShortcut(['S'], () => navigate('/search', { scroll: true }))
   createShortcut(['F'], () => navigate('/', { scroll: true }))
+  createShortcut(['G'], () => setPopup(state => state == 'goto' ? false : 'goto'))
+
+  createEffect(() => {
+    if (popup() == 'goto') {
+      let input: HTMLInputElement
+      <Portal>
+        <form class="putInCenter" onSubmit={
+          (e) => {
+            e.preventDefault()
+            navigate(`/letter/${input.value}`)
+          }
+        }>
+          <input type="number" ref={input} min='0' max='9999999' placeholder="Enter a letter ID" />
+        </form>
+      </Portal>
+      input.focus()
+      createShortcut(['Escape'], () => {
+        setPopup(false)
+      })
+    }
+  })
 
   return (<header>
     <h1>
