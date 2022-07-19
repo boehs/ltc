@@ -18,17 +18,19 @@ export default function Root() {
       </head>
       <body>
         <ErrorBoundary>
-          <Header/>
+          <Header />
         </ErrorBoundary>
         <ErrorBoundary>
           <Suspense>
-            <Routes>
-              <FileRoutes/>
-            </Routes>
+            <main>
+              <Routes>
+                <FileRoutes />
+              </Routes>
+            </main>
           </Suspense>
         </ErrorBoundary>
         <ErrorBoundary>
-          <Footer/>
+          <Footer />
         </ErrorBoundary>
         <Scripts />
       </body>

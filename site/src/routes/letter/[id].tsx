@@ -48,7 +48,7 @@ export function routeData({ params }) {
 export default function LetterID() {
     const data: ReturnType<typeof routeData> = useRouteData()
     createEffect(() => { if(data()) setPopup(false) })
-    return (<main>
+    return (<>
         <ErrorBoundary fallback={err => <RenderError error={err}/>}>
             <Show when={data()} fallback={<NotFound />}>
                 <ErrorBoundary fallback={err => <RenderError error={err}/>}>
@@ -83,5 +83,5 @@ export default function LetterID() {
             </Show>
         </ErrorBoundary>
         <Pagination id={(() => Number(useParams().id))()} />
-    </main>)
+    </>)
 }

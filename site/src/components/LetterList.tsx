@@ -19,7 +19,7 @@ export default function LetterList() {
     const data: Resource<LetterData[]> = useRouteData()
     const id = () => Number(useParams().offset)
     const navigate = useNavigate()
-    return (<main>
+    return (<>
         <ErrorBoundary fallback={(err: Error) => <RenderError error={err}/>}>
             <Show when={data()} fallback={<NotFound/>}>
                 <For each={data()}>
@@ -31,5 +31,5 @@ export default function LetterList() {
             </Show>
         </ErrorBoundary>
         <Pagination id={id()}/>
-    </main>)
+    </>)
 }

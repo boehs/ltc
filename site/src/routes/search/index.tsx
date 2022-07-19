@@ -13,11 +13,9 @@ export default function Search() {
     const data: ReturnType<typeof routeData> = useRouteData()
     const [isLoading, setIsLoading] = createSignal(false)
     
-    return <main>
-        <data.Form onsubmit={() => setIsLoading(true)}>
+    return (<data.Form onsubmit={() => setIsLoading(true)}>
             <label for="ss">What are you looking for?</label>
             <input name="ss" type="text" placeholder="Search..." onInput={activeStateListener}/>
             <input type="submit" disabled={isLoading()} />
-        </data.Form>
-    </main>
+        </data.Form>)
 }

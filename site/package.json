@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@ip-location-db/asn-country": "^2.3.2022070918",
+    "@mdx-js/rollup": "^2.1.2",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@solid-primitives/keyboard": "^1.0.0",
     "@solid-primitives/set": "^0.2.0",
@@ -29,6 +30,7 @@
     "pg": "^8.7.3",
     "pg-native": "^3.0.0",
     "sass": "^1.53.0",
+    "solid-mdx": "^0.0.6",
     "xss": "^1.0.13"
   }
 }

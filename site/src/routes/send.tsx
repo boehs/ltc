@@ -1,7 +1,7 @@
 import { activeStateListener } from "~/lib/shortcuts";
 
 export default function Send() {
-    return (<main>
+    return (<>
         <p>Write your letter!</p>
         <form>
             <label for="message">Letter Message:</label>
@@ -17,5 +17,5 @@ export default function Send() {
             <small>Email is optional and never shown. Leave yours if you want email notifications on new comments for this letter.</small>
             <input type='submit' value="Send 💌"></input>
         </form>
-    </main>)
+    </>)
 }

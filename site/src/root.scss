@@ -117,6 +117,19 @@ form {
   }
 }
 
+.putInCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+ul {
+  p {
+    margin-block: 0 
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --dark: #fff;
@@ -131,11 +144,4 @@ body.dark {
     --light: #1a1919;
     --lighter: #564444;
     --darker: #fce2e2;
-}
-
-.putInCenter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
 }
