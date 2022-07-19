@@ -3,11 +3,12 @@ import { db, getLocation } from '../../../../shared'
 import Letter from '~/components/Letter'
 import { createServerData } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
-import { ErrorBoundary, Resource, Show } from 'solid-js';
+import { createEffect, ErrorBoundary, Resource, Show } from 'solid-js';
 import NotFound from '../[...404]';
 import Pagination from '~/components/Pagination';
 import { activeStateListener } from '~/lib/shortcuts';
 import RenderError from '~/components/RenderError';
+import { setPopup } from '~/components/Header';
 
 interface LetterData {
     message: string;
@@ -45,7 +46,8 @@ export function routeData({ params }) {
 }
 
 export default function LetterID() {
-    const data: Resource<LetterData> = useRouteData()
+    const data: ReturnType<typeof routeData> = useRouteData()
+    createEffect(() => { if(data()) setPopup(false) })
     return (<main>
         <ErrorBoundary fallback={err => <RenderError error={err}/>}>
             <Show when={data()} fallback={<NotFound />}>
