@@ -2,3 +2,4 @@ letter_old
 mod
 node_modules
 .env
+offsetStore.json

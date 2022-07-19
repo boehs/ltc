@@ -5,7 +5,7 @@ console.log('worker first run')
 
 parentPort.on('message', async (e) => {
     const { offset, endpoint } = e
-    const start = Date.now()
+    const start = performance.now()
     const letters = await fetch(`${endpoint}/${offset}`, {
         headers: new Headers({
             "User-Agent": "Letters to crushes data analysis project for AP statistics (evan@boehs.org)"
@@ -17,7 +17,7 @@ parentPort.on('message', async (e) => {
             console.log(`404! for letter ${offset}`)
             break
         case 200: {
-            console.log(`got page ${offset} in ${(Date.now()-start)/1000} seconds`)
+            console.log(`got page ${offset} in ${(performance.now()-start)/1000} seconds`)
             break
         }
         default: console.log(`${letters.status} for ${offset}`)
