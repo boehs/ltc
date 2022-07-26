@@ -1,10 +1,11 @@
 import { useRouteData } from "solid-app-router";
 import { createSignal } from "solid-js";
-import { createServerAction, redirect } from "solid-start/server";
-import { activeStateListener, isTyping } from "~/lib/shortcuts";
+import { createRouteAction } from "solid-start/data";
+import { redirect } from "solid-start/server";
+import { activeStateListener } from "~/lib/shortcuts";
 
 export function routeData() {
-    return createServerAction(async (formData: FormData) => {
+    return createRouteAction(async (formData: FormData) => {
         return redirect(`./search/${encodeURI(formData.get('ss') as string)}/1`)
     })
 }

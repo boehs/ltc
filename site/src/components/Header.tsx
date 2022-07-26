@@ -1,4 +1,4 @@
-import { createShortcut } from "~/lib/shortcuts";
+import { createShortcut, Popup } from "~/lib/shortcuts";
 import { useNavigate } from "solid-app-router";
 import "./Header.scss";
 import { isServer, Portal } from "solid-js/web";
@@ -38,6 +38,13 @@ export default function Header() {
   })
 
   return (<header>
+    <Portal>
+<Popup callback={(e,d) => {
+  navigate(`/letter/${d.get('id')}`)
+}}>
+  <input type="number" min='0' max='9999999' name="id" placeholder="Enter a letter ID"/>
+</Popup>
+</Portal>
     <h1>
       <a href="/">letters to crushes</a>
     </h1>
