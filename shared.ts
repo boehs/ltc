@@ -33,6 +33,13 @@ export interface LtcTable extends LtcBase {
     lmts: "tsquery"
 }
 
+export interface LetterComment {
+    id: Generated<number>
+    author: string;
+    postDate: Date;
+    text: string;
+}
+
 export interface LtcJson extends LtcBase {
     Id: number
     letterPostDate: string
