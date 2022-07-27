@@ -28,7 +28,7 @@ Most queries fit under here. Basically everything using some sort of `group by` 
 - `count` of letters and average number of upvotes per bucket.
 - In buckets of how many comments each letter recieved
 
-> **NOTE:** There are negative comments and I am as confused as you are. It's not my fault. Somehow my data source has negative comments sometimes
+> **Note**: There are negative comments and I am as confused as you are. It's not my fault. Somehow my data source has negative comments sometimes
 
 ### [Upvotes](buckets/upvote/data.csv)
 
@@ -40,7 +40,7 @@ Most queries fit under here. Basically everything using some sort of `group by` 
 - `count` of letters, `count` of upvotes, `count` of comments
 - in buckets of letter post month
 
-> **NOTE:** It should be obvious that the commenting feature was introduced at a later date
+> **Note**: It should be obvious that the commenting feature was introduced at a later date
 
 ## Count
 
