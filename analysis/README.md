@@ -41,3 +41,27 @@ Most queries fit under here. Basically everything using some sort of `group by` 
 - in buckets of letter post month
 
 > **NOTE:** It should be obvious that the commenting feature was introduced at a later date
+
+## Count
+
+By contrast, there is no grouping here. I just want to see the count of a certain thing
+
+### [Gender](counts/gender/data.csv)
+
+- Whenever `he`,`him`, or `his` is used the author is assumed to be female
+- Whenever `she` or `her` is used the author is assumed to be male
+
+> **Warning**: This makes a number of gross assumptions.
+
+- Assumes heterosexuality, you should
+  - Subtract 3% from male
+  - Add that 3% to female
+  - And vice versa
+- Assumes the pronouns are *always* referring to OP's crush, not someone else
+- Disregards gender neutral pronouns
+  - Because it's not uncommon to refer to someone of *any* pronoun using they/them
+    - *ie:* "They changed my life", "Their hair is beautiful"
+
+Still, it's interesting to see that roughly 2x more posts are probably made by females than posts by males, even with any generous margin of error.
+
+ 
