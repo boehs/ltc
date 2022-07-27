@@ -74,8 +74,10 @@ The top 1000 words
 
 > **Note**: You may notice lots of stems instead of words.
 > For instance "someon" instead of "someone".
-> This is because the postgres ts_vector in use is using the "english" dictionary. This allows one entry for things like 'walk', 'walks' and also 'walking', but results in words sometimes being caught short.
+> This is because the postgres `ts_vector` in use is using the "english" dictionary. This allows one entry for things like 'walk', 'walks' and also 'walking', but results in words sometimes being caught short.
 > See:
 >
 > - https://en.wikipedia.org/wiki/Lexeme
 > - https://en.wikipedia.org/wiki/Stemming
+> - https://stackoverflow.com/questions/30597849/
+
