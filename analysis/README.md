@@ -64,4 +64,6 @@ By contrast, there is no grouping here. I just want to see the count of a certai
 
 Still, it's interesting to see that roughly 2x more posts are probably made by females than posts by males, even with any generous margin of error.
 
- 
+### [Totals](counts/totals/data.csv)
+
+Ok so I lied, in total there is 800k letters, not 1 million 😊
