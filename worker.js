@@ -17,7 +17,8 @@ parentPort.on('message', async (e) => {
             console.log(`404! for letter ${offset}`)
             break
         case 200: {
-            console.log(`got page ${offset} in ${(performance.now()-start)/1000} seconds`)
+            if (json.length == 0) console.log(`got page ${offset} in ${(performance.now()-start)/1000} seconds BUT it was empty`)
+            else console.log(`got page ${offset} in ${(performance.now()-start)/1000} seconds`)
             break
         }
         default: console.log(`${letters.status} for ${offset}`)

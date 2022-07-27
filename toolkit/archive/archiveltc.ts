@@ -1,5 +1,5 @@
 import { Worker } from 'worker_threads'
-import { LtcJson, patchJson, writeLettersToDB } from './shared.js'
+import { LtcJson, patchJson, writeLettersToDB } from '../../shared.js'
 import { readFile, writeFile } from "fs/promises";
 
 const workers: [Worker,string][] = []

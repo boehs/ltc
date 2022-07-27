@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { pool } from './shared.js'
+import { pool } from '../shared.js'
 import { readdir, readFile } from "node:fs/promises"
 import * as csv from '@fast-csv/format'
 import { createWriteStream } from "node:fs";
@@ -18,7 +18,7 @@ async function* getFiles(dir: string) {
 }
 
 ;(async () => {
-    for await (const f of getFiles('./analysis')) {
+    for await (const f of getFiles('../analysis')) {
       const fileName = f.split('/').at(-1)
       if (fileName == 'query.pgsql') {
         const dir = f.substring(0, f.lastIndexOf("/"));

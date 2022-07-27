@@ -1,4 +1,4 @@
-import { Generated } from "kysely";
+import { Generated, sql } from "kysely";
 import { Kysely, PostgresDialect } from "kysely"
 import pkg from 'pg';
 const { Pool } = pkg;
@@ -6,6 +6,10 @@ import 'dotenv/config'
 import { IPv4 } from "ip-num/IPNumber.js";
 import { parse } from 'csv-parse';
 import { createReadStream } from 'fs'
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 interface LtcBase {
     lettermessage: string;
@@ -58,7 +62,10 @@ export async function writeLettersToDB(letters: LtcTable[]) {
         .onConflict(oc => {
             return oc
                 .column('id')
-                .doNothing()
+                .doUpdateSet({
+                    letterup: sql`excluded.letterup`,
+                    lettercomments: sql`excluded.lettercomments`
+                })
         })
         .execute()
 }
@@ -77,7 +84,7 @@ export function patchJson(json: LtcJson[]): LtcTable[] {
 
 const IpDB: [number,number,string][] = await new Promise(function(resolve,reject) {
     const result: [number,number,string][] = [];
-    createReadStream('./node_modules/@ip-location-db/asn-country/asn-country-ipv4-num.csv')
+    createReadStream(__dirname + '/node_modules/@ip-location-db/asn-country/asn-country-ipv4-num.csv')
     .pipe(parse())
     .on("data", (data) => {
         result.push([Number(data[0]),Number(data[1]),data[2]]);
