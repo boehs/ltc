@@ -23,20 +23,21 @@ Interested to see the amount of space all the letters collectively take on my co
 
 Most queries fit under here. Basically everything using some sort of `group by` clause AKA sorting things into buckets.
 
-## [Comments](Buckets/Comments/data.csv)
+### [Comments](Buckets/Comments/data.csv)
 
 - `count` of letters and average number of upvotes per bucket.
 - In buckets of how many comments each letter recieved
 
-> **NOTE**
-> There are negative comments and I am as confused as you are. It's not my fault. Somehow my data source has negative comments sometimes
+> **NOTE:** There are negative comments and I am as confused as you are. It's not my fault. Somehow my data source has negative comments sometimes
 
-## [Upvotes](Buckets/Upvote/data.csv)
+### [Upvotes](Buckets/Upvote/data.csv)
 
 - `count` of letters and average number of comments per bucket
 - In buckets of how many upvotes each letter recieved (rounded to the nearest 10th)
 
-## [LettersPerMonth](Buckets/LettersPerMonth/data.csv)
+### [LettersPerMonth](Buckets/LettersPerMonth/data.csv)
 
 - `count` of letters, `count` of upvotes, `count` of comments
 - in buckets of letter post month
+
+> **NOTE:** It should be obvious that the commenting feature was introduced at a later date
