@@ -40,7 +40,7 @@ workers.forEach(([w,k]) => {
         if (m.status == 'done') return
         else if (m.status == 200) {
             endpoints[k].offset++
-            await writeLettersToDB(patchJson(m.json))
+            if(m.json.length > 0) await writeLettersToDB(patchJson(m.json))
             file[k] = endpoints[k].offset
             writeFile('./offsetStore.json',JSON.stringify(file))
         }
