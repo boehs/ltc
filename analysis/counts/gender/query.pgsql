@@ -18,5 +18,4 @@ select
             lower(lettermessage) like '%she%'
             -- I love her
             or lower(lettermessage) like '%her%'
-
     ) as he

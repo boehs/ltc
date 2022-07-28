@@ -66,7 +66,7 @@ Still, it's interesting to see that roughly 2x more posts are probably made by f
 
 ### [Totals](counts/totals/data.csv)
 
-Ok so I lied, in total there is 800k letters, not 1 million 😊
+Ok so I lied, in total there is 900k letters, not 1 million 😊
 
 ### [Top Words](counts/topWords/data.csv)
 
