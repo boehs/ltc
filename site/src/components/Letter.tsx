@@ -18,6 +18,7 @@ interface LetterProps {
 }
 
 function getFlagEmoji(countryCode) {
+    if (countryCode == null) return '❓'
     const codePoints = countryCode
         .toUpperCase()
         .split('')
@@ -43,9 +44,7 @@ export default function Letter(props: LetterProps) {
                             <span>{props.commentsN} <img src='/comment.png' /></span>
                         </Show>
                         <span>{props.hearts} <img src='/heart.png' /></span>
-                        <Show when={props.location}>
-                            <span>{getFlagEmoji(props.location)}</span>
-                        </Show>
+                        <span>{getFlagEmoji(props.location)}</span>
                     </div>
                 </ErrorBoundary>
             </div>

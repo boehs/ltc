@@ -20,7 +20,7 @@ export function routeData({params}) {
                     hearts: stuffs.letterup,
                     id: stuffs.id,
                     date: stuffs.letterpostdate,
-                    location: getLocation(IPv4.fromString(stuffs.senderip.trim())),
+                    location: stuffs.senderip ? getLocation(IPv4.fromString(stuffs.senderip.trim())) : null,
                     commentsN: stuffs.lettercomments
                 }
             })
