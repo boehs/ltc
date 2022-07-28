@@ -32,21 +32,36 @@ export interface LtcTable extends LtcBase {
     hidden: Generated<boolean>
     lmts: "tsquery"
 }
-
-export interface LetterComment {
-    id: Generated<number>
-    author: string;
-    postDate: Date;
-    text: string;
-}
-
 export interface LtcJson extends LtcBase {
     Id: number
     letterPostDate: string
 }
 
+export interface LtcCommentBase {
+    commentmessage: string
+    commentername: string
+    letterid: number
+    sendemail: boolean
+    hearts: number
+    commenteremail: string
+    commenterguid: string
+    level: number
+    commenterip: string
+}
+
+export interface LtcCommentJSON extends LtcCommentBase {
+    Id: number
+    commentdate: string
+}
+
+export interface LtcCommentTable extends LtcCommentBase {
+    id: Generated<number>
+    commentdate: Date
+}
+
 interface Database {
     ltc: LtcTable
+    ltccomments: LtcCommentTable
 }
 
 export const pool = new Pool({
@@ -89,8 +104,31 @@ export function patchJson(json: LtcJson[]): LtcTable[] {
     })
 }
 
-const IpDB: [number,number,string][] = await new Promise(function(resolve,reject) {
-    const result: [number,number,string][] = [];
+export async function writeCommentsToDB(comments: LtcCommentTable[]) {
+    return await db
+        .insertInto('ltccomments')
+        .values(comments)
+        .onConflict(oc => {
+            return oc
+                .column('id')
+                .doUpdateSet({
+                    hearts: sql`excluded.hearts`
+                })
+        })
+        .execute()
+}
+
+export function patchCommentJson(json: LtcCommentJSON[]): LtcCommentTable[] {
+    return json.map(comment => {
+        // @ts-expect-error
+        const newComment: LtcCommentTable = Object.fromEntries(
+            Object.entries(comment).map(([k, v]) => [k.toLowerCase(), v])
+        );
+        newComment.commentmessage = newComment.commentmessage.replaceAll(/[\x00]/g, '')
+        newComment.commentdate = new Date(Number(comment.commentdate.split('/Date(')[1].split(')/')[0]))
+        return newComment
+    })
+}
     createReadStream(__dirname + '/node_modules/@ip-location-db/asn-country/asn-country-ipv4-num.csv')
     .pipe(parse())
     .on("data", (data) => {
