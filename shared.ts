@@ -78,6 +78,11 @@ export const db = new Kysely<Database>({
 })
 
 export async function writeLettersToDB(letters: LtcTable[]) {
+    letters = letters.map((letter) => {
+        // @ts-expect-error
+        if (letter.letterlevel == -1) letter.hidden = true
+        return letter
+    })
     return await db
         .insertInto('ltc')
         .values(letters)
@@ -98,7 +103,7 @@ export function patchJson(json: LtcJson[]): LtcTable[] {
         const newLetter: LtcTable = Object.fromEntries(
             Object.entries(letter).map(([k, v]) => [k.toLowerCase(), v])
         );
-        newLetter.lettermessage = newLetter.lettermessage.replaceAll(/[\x00]/g,'')
+        newLetter.lettermessage = newLetter.lettermessage.replaceAll(/[\x00]/g, '')
         newLetter.letterpostdate = new Date(Number(letter.letterPostDate.split('/Date(')[1].split(')/')[0]))
         return newLetter
     })
@@ -129,20 +134,23 @@ export function patchCommentJson(json: LtcCommentJSON[]): LtcCommentTable[] {
         return newComment
     })
 }
+
+const IpDB: [number, number, string][] = await new Promise(function (resolve, reject) {
+    const result: [number, number, string][] = [];
     createReadStream(__dirname + '/node_modules/@ip-location-db/asn-country/asn-country-ipv4-num.csv')
-    .pipe(parse())
-    .on("data", (data) => {
-        result.push([Number(data[0]),Number(data[1]),data[2]]);
-    })
-    .on('end', () => {
-        resolve(result);
-    })
-    .on('error',reject)
+        .pipe(parse())
+        .on("data", (data) => {
+            result.push([Number(data[0]), Number(data[1]), data[2]]);
+        })
+        .on('end', () => {
+            resolve(result);
+        })
+        .on('error', reject)
 })
 
 export function getLocation(ip: IPv4) {
     for (const entry of IpDB) {
-        if(entry[0] < ip.getValue() && ip.getValue() < entry[1])  {
+        if (entry[0] < ip.getValue() && ip.getValue() < entry[1]) {
             return entry[2]
         }
     }

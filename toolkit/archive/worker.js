@@ -11,7 +11,7 @@ parentPort.on('message', async (e) => {
             "User-Agent": "Letters to crushes data analysis project for AP statistics (evan@boehs.org)"
         })
     })
-    const json = await letters.json()
+    let json = {}
     switch (letters.status) {
         case 404 || 500:
             console.log(`404! for letter ${offset}`)
@@ -19,6 +19,7 @@ parentPort.on('message', async (e) => {
         case 200: {
             if (json.length == 0) console.log(`got page ${offset} in ${(performance.now()-start)/1000} seconds BUT it was empty`)
             else console.log(`got page ${offset} in ${(performance.now()-start)/1000} seconds`)
+            json = await letters.json()
             break
         }
         default: console.log(`${letters.status} for ${offset}`)
