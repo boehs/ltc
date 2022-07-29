@@ -21,6 +21,7 @@ export default function Footer() {
                 <li><a class="secondary" href="/feedback">feedback</a></li>
                 <li><a class="secondary" href="/search">search</a></li>
                 <li><a class="secondary" href="/shortcuts">shortcuts</a></li>
+                <li><a class="secondary" href="/bookmarks">bookmarks</a></li>
                 <li><a class="secondary" href='' onClick={() => setDark(dark => !dark)}>{dark() ? 'light' : 'dark'}</a></li>
             </ul>
             <Show when={useIsRouting()()}>
