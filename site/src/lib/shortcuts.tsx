@@ -1,8 +1,7 @@
 import { createShortcut as _createShortcut } from "@solid-primitives/keyboard"
 import { ReactiveSet } from '@solid-primitives/set'
-import { useIsRouting, useNavigate } from "solid-app-router"
-import { createEffect, createSignal, onMount } from "solid-js"
-import { Portal } from "solid-js/web"
+import { useIsRouting } from "solid-app-router"
+import { createEffect, createSignal, onMount, Show } from "solid-js"
 import { JSX } from "solid-js/web/types/jsx"
 
 export const isTyping = new ReactiveSet()
@@ -32,11 +31,16 @@ export function activeStateListener(input: InputEvent) {
   }
 }
 
-const popups: JSX.Element[] = []
-export const [popup, setPopup] = createSignal<false | 'goto'>(false)
+export const [activePopup, setActivePopup] = createSignal<false | JSX.Element>(false)
 
-export function Popup(props: {
-  children: JSX.Element
+export function PopupPortal() {
+  return <Show when={activePopup()}>
+    {activePopup()}
+  </Show>
+}
+
+function _Popup(props: {
+  children: JSX.Element,
   callback: (event: Event & {
     submitter: HTMLElement;
   } & {
@@ -48,6 +52,7 @@ export function Popup(props: {
   const form = <form ref={formElm} class="putInCenter" onSubmit={(e) => {
     e.preventDefault()
     props.callback(e,new FormData(formElm))
+    setActivePopup(false)
   }}>
     {props.children}
   </form>
@@ -57,6 +62,18 @@ export function Popup(props: {
     input.focus()
   })
   return form
+}
+
+export function Popup(props: Parameters<typeof _Popup>[0] & {
+  shortcut: Parameters<typeof createShortcut>[0]
+}) {
+  const popup = <_Popup callback={props.callback}>
+    {props.children}
+  </_Popup>
+  createShortcut(props.shortcut,() => {
+    setActivePopup(popup)
+  })
+  return <></>
 }
 
 //createEffect(() => {

@@ -8,6 +8,7 @@ export function routeData() {
     return createServerData(async function () {
         return await db
             .selectFrom('ltc')
+            .where('letterup', 'not in', [-1,-10])
             .orderBy(sql`random()`, 'asc')
             .limit(1)
             .select('id')

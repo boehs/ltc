@@ -1,10 +1,7 @@
 import { createShortcut, Popup } from "~/lib/shortcuts";
 import { useNavigate } from "solid-app-router";
 import "./Header.scss";
-import { isServer, Portal } from "solid-js/web";
-import { createEffect, createSignal } from "solid-js";
-
-export const [popup, setPopup] = createSignal<false | 'goto'>(false)
+import { isServer, } from "solid-js/web";
 
 export default function Header() {
   const navigate = useNavigate()
@@ -13,38 +10,19 @@ export default function Header() {
   }
   createShortcut(['R'], () => navigate('/random', { scroll: true }))
   createShortcut(['N'], () => navigate('/new', { scroll: true }))
-  createShortcut(['S'], () => navigate('/search', { scroll: true }))
   createShortcut(['F'], () => navigate('/', { scroll: true }))
-  createShortcut(['G'], () => setPopup(state => state == 'goto' ? false : 'goto'))
-
-  createEffect(() => {
-    if (popup() == 'goto') {
-      let input: HTMLInputElement
-      <Portal>
-        <form class="putInCenter" onSubmit={
-          (e) => {
-            e.preventDefault()
-            navigate(`/letter/${input.value}`)
-          }
-        }>
-          <input type="number" ref={input} min='0' max='9999999' placeholder="Enter a letter ID" />
-        </form>
-      </Portal>
-      input.focus()
-      createShortcut(['Escape'], () => {
-        setPopup(false)
-      })
-    }
-  })
 
   return (<header>
-    <Portal>
-<Popup callback={(e,d) => {
-  navigate(`/letter/${d.get('id')}`)
-}}>
-  <input type="number" min='0' max='9999999' name="id" placeholder="Enter a letter ID"/>
-</Popup>
-</Portal>
+    <Popup callback={(_, d) => {
+      navigate(`/letter/${d.get('id')}`)
+    }} shortcut={["G"]}>
+      <input type="number" min='0' max='9999999' name="id" placeholder="Enter a letter ID" />
+    </Popup>
+    <Popup callback={(_, d) => {
+      navigate(`/search/${d.get('term')}/1`)
+    }} shortcut={["S"]}>
+      <input type="text" name="term" placeholder="What are you looking for?" />
+    </Popup>
     <h1>
       <a href="/">letters to crushes</a>
     </h1>

@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import './root.scss'
 import Footer from "./components/Footer";
 import { Routes } from "solid-app-router";
+import { PopupPortal } from "./lib/shortcuts";
 
 export default function Root() {
   return (
@@ -17,6 +18,7 @@ export default function Root() {
         <Links />
       </head>
       <body>
+        <PopupPortal/>
         <ErrorBoundary>
           <Header />
         </ErrorBoundary>
