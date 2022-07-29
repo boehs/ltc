@@ -6,7 +6,7 @@ import { activeStateListener } from "~/lib/shortcuts";
 
 export function routeData() {
     return createRouteAction(async (formData: FormData) => {
-        return redirect(`./search/${encodeURI(formData.get('ss') as string)}/1`)
+        return redirect(`/search/${encodeURI(formData.get('ss') as string)}/1`)
     })
 }
 
