@@ -45,6 +45,10 @@ export default function Letter(props: LetterProps) {
                 </ErrorBoundary>
                 <ErrorBoundary fallback={err => <RenderError error={err} />}>
                     <div>
+                        <Show when={props.commentsN > 0}>
+                            <span>{props.commentsN} <img src='/comment.png' /></span>
+                        </Show>
+                        <span>{props.hearts} <img src='/heart.png' /></span>
                         <span onclick={() => {                            
                             setStorage('bookmarks', bookmarkArray().has(String(props.id))
                                 ? [...bookmarkArray()].filter(i => i != String(props.id)).toString()
@@ -54,10 +58,6 @@ export default function Letter(props: LetterProps) {
                                 "padding-bottom": `${(16 - 10) / 2}px`
                             }} />
                         </span>
-                        <Show when={props.commentsN > 0}>
-                            <span>{props.commentsN} <img src='/comment.png' /></span>
-                        </Show>
-                        <span>{props.hearts} <img src='/heart.png' /></span>
                         <span>{getFlagEmoji(props.location)}</span>
                     </div>
                 </ErrorBoundary>
