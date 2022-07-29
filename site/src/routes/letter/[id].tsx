@@ -8,16 +8,7 @@ import NotFound from '../[...404]';
 import Pagination from '~/components/Pagination';
 import { activeStateListener, setActivePopup } from '~/lib/shortcuts';
 import RenderError from '~/components/RenderError';
-
-interface LetterData {
-    message: string;
-    id: number;
-    date: Date;
-    location: string;
-    commentsN: number;
-    hearts: number
-    hidden: boolean
-}
+import { Title } from 'solid-meta';
 
 export function routeData({ params }) {
     return createServerData(() => params.id, async function (id) {
@@ -50,7 +41,8 @@ export default function LetterID() {
     return (<>
         <ErrorBoundary fallback={err => <RenderError error={err}/>}>
             <Show when={data()} fallback={<NotFound />}>
-                <ErrorBoundary fallback={err => <RenderError error={err}/>}>
+                <Title>Letter {data().id}</Title>
+                <ErrorBoundary fallback={err => <RenderError error={err} />}>
                     <Letter expanded={true} {...data()} />
                 </ErrorBoundary>
                 <ErrorBoundary fallback={err => <p>{err}</p>}>
