@@ -80,6 +80,12 @@ export function Popup(props: Parameters<typeof _Popup>[0] & {
       const input: HTMLInputElement | HTMLTextAreaElement | undefined = document
         .querySelector('.popup input,.popup textarea')
       input.focus()
+      const listenerFn = () => {
+        input.value = ''
+        input.removeEventListener('onchange',listenerFn)
+      }
+      input.addEventListener('onchange',listenerFn)
+      
     }
   })
   return <></>
