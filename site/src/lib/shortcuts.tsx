@@ -34,6 +34,13 @@ export function activeStateListener(input: InputEvent) {
 export const [activePopup, setActivePopup] = createSignal<false | JSX.Element>(false)
 
 export function PopupPortal() {
+  createEffect(() => {
+    if (activePopup()) {
+      _createShortcut(["Escape"], () => {
+        setActivePopup(false)
+      })
+    }
+  })
   return <Show when={activePopup()}>
     {activePopup()}
   </Show>
@@ -46,21 +53,16 @@ function _Popup(props: {
   } & {
     currentTarget: HTMLFormElement;
     target: Element;
-  },data: FormData) => void
+  }, data: FormData) => void
 }) {
   let formElm: HTMLFormElement
-  const form = <form ref={formElm} class="putInCenter" onSubmit={(e) => {
+  const form = <form ref={formElm} class="putInCenter popup" onSubmit={(e) => {
     e.preventDefault()
-    props.callback(e,new FormData(formElm))
+    props.callback(e, new FormData(formElm))
     setActivePopup(false)
   }}>
     {props.children}
   </form>
-  onMount(() => {
-    const input: HTMLInputElement | HTMLTextAreaElement | undefined = formElm
-      .querySelector('input,textarea')
-    input.focus()
-  })
   return form
 }
 
@@ -70,8 +72,15 @@ export function Popup(props: Parameters<typeof _Popup>[0] & {
   const popup = <_Popup callback={props.callback}>
     {props.children}
   </_Popup>
-  createShortcut(props.shortcut,() => {
+  createShortcut(props.shortcut, () => {
     setActivePopup(popup)
+  })
+  createEffect(() => {
+    if (activePopup() == popup) {
+      const input: HTMLInputElement | HTMLTextAreaElement | undefined = document
+        .querySelector('.popup input,.popup textarea')
+      input.focus()
+    }
   })
   return <></>
 }
