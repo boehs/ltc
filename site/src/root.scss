@@ -11,7 +11,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -47,7 +49,7 @@ a {
 .secondary {
   color: var(--dark);
   font-size: 12px;
-  
+
   &:visited {
     color: var(--dark);
   }
@@ -79,7 +81,8 @@ form {
     display: inline-block;
   }
 
-  input,textarea {
+  input,
+  textarea {
     border: 1px solid #ccc;
     display: block;
     padding: 5px;
@@ -87,24 +90,27 @@ form {
     outline: none;
   }
 
-  input[type="text"],input[type="email"],textarea,input[type="number"] {
+  input[type="text"],
+  input[type="email"],
+  textarea,
+  input[type="number"] {
     width: 100%;
   }
-  
+
   input:disabled {
     background-color: var(--lighter);
   }
-  
+
   input:last-of-type {
     margin-block-end: 0;
   }
-  
+
   textarea {
     display: block;
     resize: none;
     overflow: auto;
   }
-  
+
   small {
     display: block;
     margin-block-start: 3px;
@@ -112,11 +118,11 @@ form {
     color: #999;
     font-size: 10px;
   }
-  
+
   input[type="submit"] {
     cursor: pointer;
     transition: transform 0.5s;
-    
+
     &:hover {
       transform: translateY(-2px);
     }
@@ -127,24 +133,27 @@ form {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  box-shadow: rgb(0 0 0 / 16%) 0px 10px 36px 0px, rgb(0 0 0 / 6%) 0px 0px 0px 1px;
+  transform: translate(-50%, -50%);
+  box-shadow: rgb(0 0 0 / 16%) 0px 10px 36px 0px,
+    rgb(0 0 0 / 6%) 0px 0px 0px 1px;
 }
 
 ul {
   p {
-    margin-block: 0 
+    margin-block: 0;
   }
 }
 
-.comments > *,footer {
+.comments > *,
+footer {
   margin-block: 40px;
 }
 
 header {
   margin-top: 1em;
-  
-  h1,ul {
+
+  h1,
+  ul {
     margin-block: 0;
   }
 }
@@ -155,7 +164,7 @@ header {
     width: min(450px, 100%);
     margin: auto;
   }
-  
+
   h3 {
     font-size: 1em;
   }
@@ -165,20 +174,21 @@ header {
   display: block;
   font-size: 13px;
   margin-block: 40px;
-  
+
   .comment-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-block: 1em;
     border-bottom: 1px dotted var(--dark);
-    
+
     h4 {
       margin: 0;
     }
   }
-  
-  span, a {
+
+  span,
+  a {
     border-radius: 3px;
     padding: 3px;
     color: var(--primary);
@@ -197,8 +207,29 @@ header {
 }
 
 body.dark {
-    --dark: #fff;
-    --light: #1a1919;
-    --lighter: #564444;
-    --darker: #fce2e2;
+  --dark: #fff;
+  --light: #1a1919;
+  --lighter: #564444;
+  --darker: #fce2e2;
+}
+
+.disabled {
+  position: relative;
+}
+
+.disabled::after {
+  content: ""; // ::before and ::after both require content
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    #ccc,
+    #ccc 10px,
+    #eee 10px,
+    #eee 20px
+  );
+  opacity: 0.5;
 }

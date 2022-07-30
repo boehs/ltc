@@ -3,7 +3,7 @@ import { activeStateListener } from "~/lib/shortcuts";
 export default function Send() {
     return (<>
         <p>Write your letter!</p>
-        <form>
+        <form class="disabled">
             <label for="message">Letter Message:</label>
             <textarea rows="1" name='message' onInput={(e) => {
                 activeStateListener(e)

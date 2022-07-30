@@ -72,7 +72,7 @@ export default function LetterID() {
                                 </For>
                             </ul>
                         </Show>
-                        <form>
+                        <form class='disabled'>
                             <Show when={!data.letter().hidden} fallback={<>
                                 <h4>:/</h4>
                                 <p>You can't comment on hidden posts!</p>
