@@ -3,7 +3,7 @@ import { db, LtcCommentJSON, patchCommentJson, writeCommentsToDB } from '../../s
 import { sql } from 'kysely';
 
 const workers: [Worker, string][] = []
-let endpoints: string[] = ['http://letterstocrushes.com/Comment/GetComments']
+let endpoints: string[] = ['http://letterstocrushes.com/Comment/GetComments','http://letterstocrushes.com/Comment/GetComments','http://letterstocrushes.com/Comment/GetComments']
 
 for (let k of endpoints) {
     workers.push([new Worker("./worker.js"), k])
@@ -30,7 +30,7 @@ workers.forEach(([w, k]) => {
     w.on('message', async (m: { status: 'done' | 200, json: LtcCommentJSON[] }) => {
         if (m.status == 'done') return
         else if (m.status == 200) {
-            await writeCommentsToDB(patchCommentJson(m.json))
+            if(m.json.length > 0) await writeCommentsToDB(patchCommentJson(m.json))
         }
         i++
         w.postMessage({
