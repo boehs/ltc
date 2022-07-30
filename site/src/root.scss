@@ -5,7 +5,14 @@
   --dark: #000;
   --light: #fff;
   scroll-behavior: smooth;
+}
+
+html {
   box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {
@@ -77,7 +84,6 @@ form {
     display: block;
     padding: 5px;
     margin-block-end: 10px;
-    box-sizing: border-box;
     outline: none;
   }
 
@@ -128,6 +134,56 @@ form {
 ul {
   p {
     margin-block: 0 
+  }
+}
+
+.comments > *,footer {
+  margin-block: 40px;
+}
+
+header {
+  margin-top: 1em;
+  
+  h1,ul {
+    margin-block: 0;
+  }
+}
+
+.comments {
+  ul {
+    padding: 0;
+    width: min(450px, 100%);
+    margin: auto;
+  }
+  
+  h3 {
+    font-size: 1em;
+  }
+}
+
+.comment {
+  display: block;
+  font-size: 13px;
+  margin-block: 40px;
+  
+  .comment-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 1em;
+    border-bottom: 1px dotted #000;
+    
+    h4 {
+      margin: 0;
+    }
+  }
+  
+  span, a {
+    border-radius: 3px;
+    padding: 3px;
+    color: var(--primary);
+    display: inline-block;
+    transition: background-color 0.2s, transform 0.5s;
   }
 }
 
