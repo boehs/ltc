@@ -67,8 +67,7 @@ export default function LetterID() {
                                             <h4>{comment.commentername}</h4>
                                             <span>{(() => new Date(comment.commentdate))().toLocaleDateString([], { dateStyle: 'long' })}, {(() => new Date(comment.commentdate))().toLocaleTimeString([], { timeStyle: 'short' })}</span>
                                         </div>
-                                        <div class='comment-text' innerHTML={xss(comment.commentmessage)
-                                            .replace(/\n+/g,'<br/>')}/>
+                                        <div class='comment-text' innerHTML={xss(comment.commentmessage)}/>
                                     </li>}
                                 </For>
                             </ul>
