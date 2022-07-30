@@ -12,6 +12,7 @@ export function routeData({ params }) {
             .limit(10)
             .where('hidden', '=', false)
             .where('lmts', '@@', sql<"tsquery">`websearch_to_tsquery(${search})`)
+            .where('letterlevel', 'not in', [-1, -10])
             .offset((Number(offset) * 10) - 10)
             .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup'])
             .execute()
