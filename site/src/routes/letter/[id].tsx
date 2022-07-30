@@ -3,52 +3,78 @@ import { db, getLocation } from '../../../../shared'
 import Letter from '~/components/Letter'
 import { createServerData } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
-import { createEffect, ErrorBoundary, Show } from 'solid-js';
+import { createEffect, ErrorBoundary, For, Show } from 'solid-js';
 import NotFound from '../[...404]';
 import Pagination from '~/components/Pagination';
 import { activeStateListener, setActivePopup } from '~/lib/shortcuts';
 import RenderError from '~/components/RenderError';
 import { Title } from 'solid-meta';
+import xss from 'xss';
 
 export function routeData({ params }) {
-    return createServerData(() => params.id, async function (id) {
-        const stuffs = await db
-            .selectFrom('ltc')
-            .where('id', '=', Number(id))
-            .limit(1)
-            .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup', 'hidden'])
-            .executeTakeFirst()
-        if (stuffs) {
-            return {
-                message: stuffs.lettermessage,
-                hidden: stuffs.hidden,
-                hearts: stuffs.letterup,
-                id: stuffs.id,
-                date: stuffs.letterpostdate,
-                location: stuffs.senderip ? getLocation(IPv4.fromString(stuffs.senderip.trim())) : null,
-                commentsN: stuffs.lettercomments
+    return {
+        letter: createServerData(() => params.id, async function (id) {
+            const stuffs = await db
+                .selectFrom('ltc')
+                .where('id', '=', Number(id))
+                .limit(1)
+                .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup', 'hidden'])
+                .executeTakeFirst()
+            if (stuffs) {
+                return {
+                    message: stuffs.lettermessage,
+                    hidden: stuffs.hidden,
+                    hearts: stuffs.letterup,
+                    id: stuffs.id,
+                    date: stuffs.letterpostdate,
+                    location: stuffs.senderip ? getLocation(IPv4.fromString(stuffs.senderip.trim())) : null,
+                    commentsN: stuffs.lettercomments
+                }
             }
-        }
-    })
-
+        }),
+        comments: createServerData(() => params.id, async function (id) {
+            return await db
+                .selectFrom('ltccomments')
+                .select([
+                    "commentdate",
+                    "commentername",
+                    "commentmessage"
+                ])
+                .where('letterid', '=', Number(id))
+                .execute()
+        })
+    }
 }
 
 export default function LetterID() {
     const data: ReturnType<typeof routeData> = useRouteData()
-    createEffect(() => { if (data()) setActivePopup(false) })
+    createEffect(() => { if (data.letter()) setActivePopup(false) })
     return (<>
         <ErrorBoundary fallback={err => <RenderError error={err} />}>
-            <Show when={data()} fallback={<NotFound />}>
-                <Title>Letter {data().id}</Title>
+            <Show when={data.letter()} fallback={<NotFound />}>
+                <Title>Letter {data.letter().id}</Title>
                 <ErrorBoundary fallback={err => <RenderError error={err} />}>
-                    <Letter expanded={true} {...data()} />
+                    <Letter expanded={true} {...data.letter()} />
                 </ErrorBoundary>
                 <ErrorBoundary fallback={err => <p>{err}</p>}>
-                    <hr />
                     <div class='comments'>
-                        <h3>{data().commentsN} comments</h3>
+                        <h3>{data.letter().commentsN} comments</h3>
+                        <Show when={data.comments()}>
+                            <ul>
+                                <For each={data.comments()}>
+                                    {comment => <li class='comment'>
+                                        <div class='comment-actions'>
+                                            <h4>{comment.commentername}</h4>
+                                            <span>{(() => new Date(comment.commentdate))().toLocaleDateString([], { dateStyle: 'long' })}, {(() => new Date(comment.commentdate))().toLocaleTimeString([], { timeStyle: 'short' })}</span>
+                                        </div>
+                                        <div class='comment-text' innerHTML={xss(comment.commentmessage)
+                                            .replaceAll('\n','<br/>')}/>
+                                    </li>}
+                                </For>
+                            </ul>
+                        </Show>
                         <form>
-                            <Show when={!data().hidden} fallback={<>
+                            <Show when={!data.letter().hidden} fallback={<>
                                 <h4>:/</h4>
                                 <p>You can't comment on hidden posts!</p>
                             </>}>
