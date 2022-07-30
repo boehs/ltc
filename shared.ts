@@ -130,7 +130,8 @@ export function patchCommentJson(json: LtcCommentJSON[]): LtcCommentTable[] {
             Object.entries(comment).map(([k, v]) => [k.toLowerCase(), v])
         );
         newComment.commentmessage = newComment.commentmessage.replaceAll(/[\x00]/g, '')
-        newComment.commentdate = new Date(Number(comment.commentdate.split('/Date(')[1].split(')/')[0]))
+        // @ts-expect-error
+        newComment.commentdate = new Date(Number(newComment.commentdate.split('/Date(')[1].split(')/')[0]))
         return newComment
     })
 }
