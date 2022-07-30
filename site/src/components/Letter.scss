@@ -1,5 +1,4 @@
 .letter {
-  line-height: 1.5em;
   & > * {
     margin-block: 40px;
   }
@@ -35,5 +34,8 @@
         text-decoration: underline;
       }
     }
+  }
+  .letter-body {
+    line-height: 1.5em;
   }
 }
