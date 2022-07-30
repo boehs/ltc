@@ -11,9 +11,10 @@ specifiers:
   csv-parse: ^5.3.0
   dotenv: ^16.0.1
   ip-num: ^1.4.0
-  kysely: ^0.19.8
+  kysely: ^0.20.0
   node-fetch: ^3.2.6
   pg: ^8.7.3
+  pg-cursor: ^2.7.3
   ts-node: ^10.8.2
   typescript: ^4.7.4
 
@@ -28,9 +29,10 @@ dependencies:
   csv-parse: 5.3.0
   dotenv: 16.0.1
   ip-num: 1.4.0
-  kysely: 0.19.8
+  kysely: 0.20.0
   node-fetch: 3.2.6
   pg: 8.7.3
+  pg-cursor: 2.7.3_pg@8.7.3
   ts-node: 10.8.2_qqrtuuv3y2pz7xoxv47yka6pmi
   typescript: 4.7.4
 
@@ -284,8 +286,8 @@ packages:
     resolution: {integrity: sha512-MP+gq4uBvrvm+G7EwP14GcJeFK49/p6sZrNOarMUoExLRodULJQM8mnkb/SbT1YKxRsZfh8rgwei2pUJIa35jA==}
     dev: false
 
-  /kysely/0.19.8:
-    resolution: {integrity: sha512-4YiUN7JJ+qTtmc3sYAGoNg9+O5jt+/10t4oG3rub0NqA3Abso2gS1OvvllHwkPY0eDH8abmXryVUrGpZ3Edfug==}
+  /kysely/0.20.0:
+    resolution: {integrity: sha512-qtt8zHpzj3wXb+j9VVvQj72Hsl4pF5N+rnFOEsTvGEK08K4iizQLTY6agiwlGhghzCzOuP71Y94Kbh+ylQV7bQ==}
     engines: {node: '>=14.0.0'}
     dev: false
 
@@ -352,6 +354,14 @@ packages:
 
   /pg-connection-string/2.5.0:
     resolution: {integrity: sha512-r5o/V/ORTA6TmUnyWZR9nCj1klXCO2CEKNRlVuJptZe85QuhFayC7WeMic7ndayT5IRIR0S0xFxFi2ousartlQ==}
+    dev: false
+
+  /pg-cursor/2.7.3_pg@8.7.3:
+    resolution: {integrity: sha512-vmjXRMD4jZK/oHaaYk6clTypgHNlzCCAqyLCO5d/UeI42egJVE5H4ZfZWACub3jzkHUXXyvibH207zAJg9iBOw==}
+    peerDependencies:
+      pg: ^8
+    dependencies:
+      pg: 8.7.3
     dev: false
 
   /pg-int8/1.0.1:

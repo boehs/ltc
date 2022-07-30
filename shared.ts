@@ -1,6 +1,7 @@
 import { Generated, sql } from "kysely";
 import { Kysely, PostgresDialect } from "kysely"
 import pkg from 'pg';
+import Cursor from 'pg-cursor'
 const { Pool } = pkg;
 import 'dotenv/config'
 import { IPv4 } from "ip-num/IPNumber.js";
@@ -73,7 +74,8 @@ export const pool = new Pool({
 
 export const db = new Kysely<Database>({
     dialect: new PostgresDialect({
-        pool: pool
+        pool: pool,
+        cursor: Cursor
     })
 })
 

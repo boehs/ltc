@@ -1,41 +1,45 @@
 import { Worker } from 'worker_threads'
 import { db, LtcCommentJSON, patchCommentJson, writeCommentsToDB } from '../../shared.js'
 import { sql } from 'kysely';
+import { EventEmitter } from 'node:events';
+const freeWorkerEmitter = new EventEmitter()
 
 const workers: [Worker, string][] = []
-let endpoints: string[] = ['http://letterstocrushes.com/Comment/GetComments','http://letterstocrushes.com/Comment/GetComments','http://letterstocrushes.com/Comment/GetComments']
+let endpoints: string[] = ['http://letterstocrushes.com/Comment/GetComments', 'http://letterstocrushes.com/Comment/GetComments', 'http://letterstocrushes.com/Comment/GetComments']
 
 for (let k of endpoints) {
-    workers.push([new Worker("./worker.js"), k])
-}
-
-const missing = (await sql<{
-    id: number
-}>`select id
-from ltc l
-where 
-    lettercomments != (select count(*) from ltccomments where letterid = l.id)
-    and lettercomments > 0
-order by id`.execute(db)).rows.map(row => row.id)
-let i = 0
-
-console.log('yo')
-
-workers.forEach(([w, k]) => {
-    w.postMessage({
-        offset: missing[i],
-        endpoint: k
-    });
-    i++
-    w.on('message', async (m: { status: 'done' | 200, json: LtcCommentJSON[] }) => {
+    const worker = new Worker("./worker.js")
+    worker.on('message', async (m: { status: 'done' | 200, json: LtcCommentJSON[] }) => {
         if (m.status == 'done') return
         else if (m.status == 200) {
-            if(m.json.length > 0) await writeCommentsToDB(patchCommentJson(m.json))
+            if (m.json.length > 0) await writeCommentsToDB(patchCommentJson(m.json))
         }
-        i++
-        w.postMessage({
-            offset: missing[i],
-            endpoint: k
-        });
+        workers.push([worker, k])
+        freeWorkerEmitter.emit('free')
     })
-})
+    workers.push([worker, k])
+}
+
+const stream = db
+    .selectFrom('ltc')
+    .select('id')
+    .where(sql`lettercomments != (select count(*) from ltccomments where letterid = ltc.id)`)
+    .where('lettercomments', '>', 0)
+    .stream()
+
+for await (const id of stream) {
+    if (id.id == 779960) {
+        throw new Error('repeat id cannary')
+    }
+    if (workers.length == 0) {
+        await new Promise(function (resolve, reject) {
+            freeWorkerEmitter.once('free', resolve)
+        })
+    }
+    const [worker, k] = workers[workers.length - 1]
+    workers.pop()
+    worker.postMessage({
+        offset: id.id,
+        endpoint: k
+    });
+}
