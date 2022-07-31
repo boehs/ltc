@@ -41,6 +41,7 @@ export function routeData({ params }) {
                     "commentmessage"
                 ])
                 .where('letterid', '=', Number(id))
+                .orderBy('commentdate')
                 .execute()
         })
     }
