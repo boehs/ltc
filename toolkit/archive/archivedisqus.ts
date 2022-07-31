@@ -47,7 +47,9 @@ for await (const response of fetchAndMaybeAgain()) {
     if (body.length > 0) {
         const l = body.flatMap(item => {
             // crushed.tumblr.com/post/*
-            if (/(tumblr|post|disqus)/.test(item.thread.link as string))
+                /(tumblr|post|disqus)/.test(item.thread.link as string)
+                || !/(([lL]etter)|(post))\//.test(item.thread.link as string)
+            )
                 return []
             // testing code
             if (Number.isNaN(Number((item.thread.link as string)
@@ -60,6 +62,8 @@ for await (const response of fetchAndMaybeAgain()) {
                 commentername: item.author.name as string,
                 commentdate: new Date(item.createdAt),
                 letterid: Number((item.thread.link as string)
+                    // wtf
+                    .replace('%202','')
                     .replace(letterRegex, '')
                 ),
                 // this is actually the commenter username
