@@ -17,7 +17,6 @@ $('.comment').each((_,el) => {
         author: comment('.commenter_name').text().trim(),
         postDate: parseDate(comment('.comment_date').text().trim()),
         text: commentMessageElm.text().trim(),
-        // @ts-expect-error
         id: Number(commentMessageElm.attr('id'))
     })
 })

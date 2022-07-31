@@ -42,11 +42,11 @@ export interface LtcCommentBase {
     commentmessage: string
     commentername: string
     letterid: number
-    sendemail: boolean
+    sendemail?: boolean
     hearts: number
     commenteremail: string
-    commenterguid: string
-    level: number
+    commenterguid?: string
+    level?: number
     commenterip: string
 }
 
@@ -58,6 +58,8 @@ export interface LtcCommentJSON extends LtcCommentBase {
 export interface LtcCommentTable extends LtcCommentBase {
     id: Generated<number>
     commentdate: Date
+    viadisqus?: true
+    extradisqusmetadata: any
 }
 
 interface Database {
