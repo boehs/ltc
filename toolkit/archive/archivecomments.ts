@@ -23,14 +23,16 @@ for (let k of endpoints) {
 const stream = db
     .selectFrom('ltc')
     .select('id')
-    .where(sql`lettercomments != (select count(*) from ltccomments where letterid = ltc.id)`)
+    .where(sql`lettercomments > (select count(*) from ltccomments where letterid = ltc.id)`)
     .where('lettercomments', '>', 0)
     .stream()
 
+let i = 0
 for await (const id of stream) {
     if (id.id == 779960) {
         throw new Error('repeat id cannary')
     }
+    console.log(i++)
     if (workers.length == 0) {
         await new Promise(function (resolve, reject) {
             freeWorkerEmitter.once('free', resolve)

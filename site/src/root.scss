@@ -9,6 +9,8 @@
 
 html {
   box-sizing: border-box;
+  scrollbar-gutter: stable both-edges;
+  scrollbar-color: var(--primary) var(--light);
 }
 
 *,
@@ -21,7 +23,7 @@ body {
   margin: 0;
   background-color: var(--light);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  overflow-y: overlay;
+
   color: var(--dark);
   > * {
     max-width: 600px;
