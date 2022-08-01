@@ -32,6 +32,9 @@ CREATE TABLE public.ltc (
 
 ALTER TABLE ONLY public.ltc
     ADD CONSTRAINT ltc_pk PRIMARY KEY (id);
+    
+ALTER TABLE ONLY public.ltc
+    ADD CONSTRAINT fk_author FOREIGN KEY (author) REFERENCES public.ltcusers(id);
 
 CREATE INDEX lmts_idx ON public.ltc USING gin (lmts);
 ```
@@ -62,6 +65,22 @@ CREATE INDEX ltccomments_letterid_idx ON public.ltccomments USING btree (letteri
 
 ALTER TABLE ONLY public.ltccomments
     ADD CONSTRAINT fk_letter FOREIGN KEY (letterid) REFERENCES public.ltc(id);
+    
+ALTER TABLE ONLY public.ltccomments
+    ADD CONSTRAINT fk_author FOREIGN KEY (author) REFERENCES public.ltcusers(id);
+```
+
+### ltcuser
+
+```sql
+CREATE TABLE public.ltcusers (
+    id integer NOT NULL,
+    defaultname text,
+    email public.citext
+);
+
+ALTER TABLE ONLY public.ltcusers
+    ADD CONSTRAINT ltcusers_pk PRIMARY KEY (id);
 ```
 
 ## Deviations
@@ -70,6 +89,7 @@ ALTER TABLE ONLY public.ltccomments
   - Added column 
     - viadisqus bool
     - extradisqusmetadata jsonb
+    - author
   - Using column
     - commenteremail for disqus usernames
     - commenterip for disqus location
@@ -77,3 +97,5 @@ ALTER TABLE ONLY public.ltccomments
   - Added column
     - hidden bool (-1 letterlevel)
     - lmts tsvector
+    - author
+- Added table ltcuser
