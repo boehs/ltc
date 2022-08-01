@@ -95,7 +95,8 @@ export async function writeLettersToDB(letters: LtcTable[]) {
                 .column('id')
                 .doUpdateSet({
                     letterup: sql`excluded.letterup`,
-                    lettercomments: sql`excluded.lettercomments`
+                    lettercomments: sql`excluded.lettercomments`,
+                    lettermessage: sql`excluded.lettermessage`
                 })
         })
         .execute()

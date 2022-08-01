@@ -1,5 +1,5 @@
 import { useParams, useRouteData } from 'solid-app-router'
-import { db, getLocation } from '../../../../shared'
+import { db, getLocation, patchCommentJson, patchJson, writeCommentsToDB, writeLettersToDB } from '../../../../shared'
 import Letter from '~/components/Letter'
 import { createServerData } from 'solid-start/server'
 import { IPv4 } from "ip-num/IPNumber.js";
@@ -15,15 +15,24 @@ import { sql } from 'kysely';
 export function routeData({ params }) {
     return {
         letter: createServerData(() => params.id, async function (id) {
+            const useId = () => Number(id)
+            fetch('http://letterstocrushes.com/Home/GetLetter/' + useId())
+                .then(async (res) => {
+                    if (res.status == 200) {
+                        console.log('got letter ' + useId())
+                        const json = await res.json()
+                        writeLettersToDB(patchJson([json]))
+                    }
+                })
             const stuffs = await db
                 .selectFrom('ltc')
-                .where('id', '=', Number(id))
+                .where('id', '=', useId())
                 .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'letterup', 'hidden',(ns) => {
                     return ns
                         .selectFrom('ltccomments')
                         // @ts-expect-error
                         .select(sql`count(*)`)
-                        .where('letterid','=',Number(id))
+                        .where('letterid','=',useId())
                         .as('lettercomments')
                 }])
                 .executeTakeFirst()
@@ -40,6 +49,15 @@ export function routeData({ params }) {
             }
         }),
         comments: createServerData(() => params.id, async function (id) {
+            const useId = () => Number(id)
+            fetch('http://letterstocrushes.com/Comment/GetComments/' + useId())
+                .then(async (res) => {
+                    if (res.status == 200) {
+                        const json = await res.json()
+                        console.log(`got ${json.length} comments for ${useId()}`)
+                        if (json.length > 0) writeCommentsToDB(patchCommentJson(json))
+                    }
+                })
             return await db
                 .selectFrom('ltccomments')
                 .select([
@@ -47,7 +65,7 @@ export function routeData({ params }) {
                     "commentername",
                     "commentmessage"
                 ])
-                .where('letterid', '=', Number(id))
+                .where('letterid', '=', useId())
                 .orderBy('commentdate')
                 .execute()
         })
