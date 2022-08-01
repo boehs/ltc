@@ -7,13 +7,16 @@ import { Title } from 'solid-meta';
 
 export function routeData() {
     return createServerData(async function () {
-        return await db
-            .selectFrom('ltc')
-            .where('letterlevel', 'not in', [-1, -10])
-            .orderBy(sql`random()`, 'asc')
-            .limit(1)
-            .select('id')
-            .executeTakeFirst()
+        const query = async () => await (await sql<{
+            id: number,
+            letterlevel: number
+        }>`select id, letterlevel from ltc tablesample system_rows(1);`.execute(db)).rows[0]
+        let res: Awaited<ReturnType<typeof query>>
+        do {
+            res = await query()
+            console.log(res)
+        } while ([-1,-10].includes(res.letterlevel))
+        return res.id
     })
 }
 
@@ -24,7 +27,7 @@ export default function LetterID() {
             Loading...
             <Show when={data()}>
                 <Title>Letter {data().id}</Title>
-                <Navigate href={`/letter/${data().id}/`} />
+                <Navigate href={`/letter/${data()}/`} />
             </Show>
         </p>
     </>)
