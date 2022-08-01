@@ -1,5 +1,6 @@
 ## Extensions Used
 
+This is for random
 
 ```
 CREATE EXTENSION tsm_system_rows ;
@@ -62,3 +63,17 @@ CREATE INDEX ltccomments_letterid_idx ON public.ltccomments USING btree (letteri
 ALTER TABLE ONLY public.ltccomments
     ADD CONSTRAINT fk_letter FOREIGN KEY (letterid) REFERENCES public.ltc(id);
 ```
+
+## Deviations
+
+- ltccomments
+  - Added column 
+    - viadisqus bool
+    - extradisqusmetadata jsonb
+  - Using column
+    - commenteremail for disqus usernames
+    - commenterip for disqus location
+- ltc
+  - Added column
+    - hidden bool (-1 letterlevel)
+    - lmts tsvector
