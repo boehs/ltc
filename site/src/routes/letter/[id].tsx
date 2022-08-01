@@ -10,6 +10,7 @@ import { activeStateListener, setActivePopup } from '~/lib/shortcuts';
 import RenderError from '~/components/RenderError';
 import { Title } from 'solid-meta';
 import xss from 'xss';
+import { sql } from 'kysely';
 
 export function routeData({ params }) {
     return {
@@ -17,8 +18,14 @@ export function routeData({ params }) {
             const stuffs = await db
                 .selectFrom('ltc')
                 .where('id', '=', Number(id))
-                .limit(1)
-                .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'lettercomments', 'letterup', 'hidden'])
+                .select(['lettermessage', 'id', 'letterpostdate', 'senderip', 'letterup', 'hidden',(ns) => {
+                    return ns
+                        .selectFrom('ltccomments')
+                        // @ts-expect-error
+                        .select(sql`count(*)`)
+                        .where('letterid','=',Number(id))
+                        .as('lettercomments')
+                }])
                 .executeTakeFirst()
             if (stuffs) {
                 return {
