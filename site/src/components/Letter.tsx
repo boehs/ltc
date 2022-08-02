@@ -19,7 +19,7 @@ interface LetterProps {
 }
 
 function getFlagEmoji(countryCode) {
-    if (countryCode == null) return '❓'
+    if (countryCode == null) return ''
     const codePoints = countryCode
         .toUpperCase()
         .split('')
