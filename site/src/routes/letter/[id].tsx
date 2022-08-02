@@ -68,7 +68,8 @@ export function routeData({ params }) {
                 .select([
                     "commentdate",
                     "commentername",
-                    "commentmessage"
+                    "commentmessage",
+                    "viadisqus"
                 ])
                 .where('letterid', '=', useId())
                 .orderBy('commentdate')
@@ -95,7 +96,14 @@ export default function LetterID() {
                                 <For each={data.comments()}>
                                     {comment => <li class='comment'>
                                         <div class='comment-actions'>
-                                            <h4>{comment.commentername}</h4>
+                                            <h4>
+                                                <Show when={comment.viadisqus}>
+                                                    <small style={{
+                                                        "font-size": "8px"
+                                                    }}>disqus </small>
+                                                </Show>
+                                                {comment.commentername}
+                                            </h4>
                                             <span>{(() => new Date(comment.commentdate))().toLocaleDateString([], { dateStyle: 'long' })}, {(() => new Date(comment.commentdate))().toLocaleTimeString([], { timeStyle: 'short' })}</span>
                                         </div>
                                         <div class='comment-text' innerHTML={xss(comment.commentmessage)}/>
