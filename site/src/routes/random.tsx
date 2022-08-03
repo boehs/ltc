@@ -26,7 +26,7 @@ export default function LetterID() {
         <p>
             Loading...
             <Show when={data()}>
-                <Title>Letter {data().id}</Title>
+                <Title>Letter {data()}</Title>
                 <Navigate href={`/letter/${data()}/`} />
             </Show>
         </p>
