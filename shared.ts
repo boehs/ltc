@@ -95,6 +95,7 @@ export async function writeLettersToDB(letters: LtcTable[]) {
                 .column('id')
                 .doUpdateSet({
                     letterup: sql`excluded.letterup`,
+                    letterlevel: sql`excluded.letterlevel`,
                     lettercomments: sql`excluded.lettercomments`,
                     lettermessage: sql`excluded.lettermessage`
                 })
@@ -148,9 +149,7 @@ const IpDB: [number, number, string][] = await new Promise(function (resolve, re
         .on("data", (data) => {
             result.push([Number(data[0]), Number(data[1]), data[2]]);
         })
-        .on('end', () => {
-            resolve(result);
-        })
+        .on('end', () => resolve(result))
         .on('error', reject)
 })
 
