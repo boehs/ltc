@@ -62,7 +62,7 @@ export function routeData({ params }) {
                         if (json.length > 0) writeCommentsToDB(patchCommentJson(json))
                     }
                 })
-            return await db
+            let comments = await db
                 .selectFrom('ltccomments')
                 .select([
                     "commentdate",
@@ -73,6 +73,14 @@ export function routeData({ params }) {
                 .where('letterid', '=', useId())
                 .orderBy('commentdate')
                 .execute()
+            comments = comments.map(comment => {
+                return {
+                    ...comment,
+                    commentmessage: xss(comment.commentmessage),
+                    commentername: xss(comment.commentername)
+                }
+            })
+            return comments
         })
     }
 }
@@ -105,7 +113,7 @@ export default function LetterID() {
                                             </h4>
                                             <span>{(() => new Date(comment.commentdate))().toLocaleDateString([], { dateStyle: 'long' })}, {(() => new Date(comment.commentdate))().toLocaleTimeString([], { timeStyle: 'short' })}</span>
                                         </div>
-                                        <div class='comment-text' innerHTML={xss(comment.commentmessage)}/>
+                                        <div class='comment-text' innerHTML={comment.commentmessage}/>
                                     </li>}
                                 </For>
                             </ul>

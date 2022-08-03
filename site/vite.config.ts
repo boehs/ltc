@@ -4,9 +4,6 @@ import solid from "solid-start/vite";
 
 export default defineConfig({
   build: {
-    commonjsOptions: {
-      include: []
-    }
   },
   optimizeDeps: {
     disabled: true
