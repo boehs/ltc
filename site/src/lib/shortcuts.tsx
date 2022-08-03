@@ -1,7 +1,7 @@
 import { createShortcut as _createShortcut } from "@solid-primitives/keyboard"
 import { ReactiveSet } from '@solid-primitives/set'
-import { useIsRouting } from "solid-app-router"
-import { createEffect, createSignal, onMount, Show } from "solid-js"
+import { useIsRouting } from "solid-start"
+import { createEffect, createSignal, Show } from "solid-js"
 import { JSX } from "solid-js/web/types/jsx"
 
 export const isTyping = new ReactiveSet()

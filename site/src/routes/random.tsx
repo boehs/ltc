@@ -1,9 +1,8 @@
-import { Navigate, useRouteData } from 'solid-app-router'
+import { Navigate, useRouteData, Title } from 'solid-start'
 import { db } from '../../../shared'
 import { createServerData } from 'solid-start/server'
 import { Show } from 'solid-js';
 import { sql } from 'kysely';
-import { Title } from 'solid-meta';
 
 export function routeData() {
     return createServerData(async function () {

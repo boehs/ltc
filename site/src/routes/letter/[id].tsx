@@ -1,7 +1,6 @@
 import { createEffect, ErrorBoundary, For, Show } from 'solid-js';
-import { useParams, useRouteData } from 'solid-app-router'
+import { useParams, useRouteData, Title } from 'solid-start'
 import { createServerData } from 'solid-start/server'
-import { Title } from 'solid-meta';
 
 import { activeStateListener, setActivePopup } from '~/lib/shortcuts';
 

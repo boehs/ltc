@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import solid from "solid-start";
+import solid from "solid-start/vite";
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 

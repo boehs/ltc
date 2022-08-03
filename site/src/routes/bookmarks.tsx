@@ -1,6 +1,6 @@
 import { For, onMount } from "solid-js";
 import { createLocalStorage } from '@solid-primitives/storage';
-import { Title } from "solid-meta";
+import { Title } from "solid-start";
 
 export default function Bookmarks() {
     const [LS,setLS] = createLocalStorage()

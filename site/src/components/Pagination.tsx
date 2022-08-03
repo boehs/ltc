@@ -1,17 +1,17 @@
-import { pagination, active } from './Pagination.module.scss'
+import styles from './Pagination.module.scss'
 import { createShortcut } from "~/lib/shortcuts";
-import { useNavigate } from 'solid-app-router';
+import { useNavigate } from 'solid-start';
 
 
 export default function Pagination(props: { id: number }) {
     let id = () => 3 > props.id ? 3 : props.id
-    const isActive = (i) => i == props.id ? active : '' 
+    const isActive = (i) => i == props.id ? styles.active : '' 
     const navigate = useNavigate()
     
     createShortcut(['ArrowLeft'],() => navigate(`../${props.id - 1}`,{scroll: true}))
     createShortcut(['ArrowRight'],() => navigate(`../${props.id + 1}`,{scroll: true}))
     
-    return (<div class={pagination}>
+    return (<div class={styles.pagination}>
         <a class={isActive(id() - 2)} href={`./${id() - 2}`}>{id() - 2}</a>
         <a class={isActive(id() - 1)} href={`./${id() - 1}`}>{id() - 1}</a>
         <a class={isActive(id())} href={`./${id()}`}>{id()}</a>

@@ -1,4 +1,4 @@
-import { useIsRouting } from 'solid-app-router'
+import { useIsRouting } from 'solid-start'
 import { createEffect, createSignal, Show } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import './Footer.scss'

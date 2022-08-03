@@ -1,5 +1,5 @@
 import { createShortcut, Popup } from "~/lib/shortcuts";
-import { useNavigate } from "solid-app-router";
+import { useNavigate } from "solid-start";
 import "./Header.scss";
 import { isServer, } from "solid-js/web";
 

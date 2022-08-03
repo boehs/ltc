@@ -1,6 +1,5 @@
-import { useRouteData } from "solid-app-router";
+import { useRouteData, Title } from "solid-start";
 import { createSignal } from "solid-js";
-import { Title } from "solid-meta";
 import { createRouteAction } from "solid-start/data";
 import { redirect } from "solid-start/server";
 import { activeStateListener } from "~/lib/shortcuts";
