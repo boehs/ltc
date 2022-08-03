@@ -1,9 +1,16 @@
 import { defineConfig } from "vite";
 import solid from "solid-start/vite";
-import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 
 export default defineConfig({
+  build: {
+    commonjsOptions: {
+      include: []
+    }
+  },
+  optimizeDeps: {
+    disabled: true
+  },
   plugins: [
     {
       ...(await import("@mdx-js/rollup")).default({
@@ -16,6 +23,5 @@ export default defineConfig({
     solid({
       extensions: [".mdx", ".md"]
     }),
-    viteCommonjs()
   ]
 });
