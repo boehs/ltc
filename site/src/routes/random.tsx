@@ -15,7 +15,7 @@ export function routeData() {
         do {
             res = await query()
             console.log(res)
-        } while ([-1,-10].includes(res.letterlevel))
+        } while (0 > res.letterlevel)
         return res.id
     })
 }
