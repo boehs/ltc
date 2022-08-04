@@ -3,10 +3,9 @@ import solid from "solid-start/vite";
 
 
 export default defineConfig({
-  build: {
-  },
   optimizeDeps: {
-    disabled: true
+    include: ["debug"],
+    exclude: ["kysely","pg","ip-num"]
   },
   plugins: [
     {
