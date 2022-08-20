@@ -14,7 +14,7 @@ const missing = (await sql<{
 }>`select allid
 from generate_series((select min(id) from ltc), (select max(id) from ltc)) allid
 except select id from ltc
-order by allid`.execute(db)).rows.map(row => row.allid)
+order by allid desc`.execute(db)).rows.map(row => row.allid)
 let i = 0
 
 console.log('yo')

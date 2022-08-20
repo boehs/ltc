@@ -65,6 +65,9 @@ export default function Letter(props: LetterProps) {
             <div class='letter-body' innerHTML={xss(props.message)
                 .replace(LetterLinkRegex, '<a href="/$1">letterstocrushes.com/$1</a>')
                 .replace(LetterHashRegex, '<a href="/$1$2">$1$2</a>')
+                .replace(/<br\/?>/g,'\n')
+                .replace(/<p>\n*<\/p>/g,'\n\n')
+                .trim()
                 .replace(/\n{2,}/g,'<br/><br/>')
             } />
         </div>

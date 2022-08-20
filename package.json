@@ -6,6 +6,7 @@
   "type": "module",
   "module": "es2022",
   "scripts": {
+    "archive:letters": "ts-node-esm toolkit/archive/archiveletters.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
